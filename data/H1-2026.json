@@ -1,0 +1,849 @@
+{
+  "meta": {
+    "autor": "Asdrubal Perez",
+    "rol": "Especialista Senior en Metodologías, Agilidad e IA · Representante de Santex ante Swiss Medical Group",
+    "periodoLabel": "H1 2026",
+    "periodoFechas": "01/01/2026 – 30/06/2026",
+    "proximoPeriodoLabel": "H2 2026"
+  },
+  "kpis": [
+    {
+      "label": "Iniciativas concretadas",
+      "value": "6",
+      "suffix": "",
+      "icon": "target"
+    },
+    {
+      "label": "Inversión gestionada",
+      "value": "USD 50.432",
+      "suffix": "",
+      "icon": "coin"
+    },
+    {
+      "label": "Horas insumidas",
+      "value": "1.032,5",
+      "suffix": "h",
+      "icon": "clock"
+    },
+    {
+      "label": "Personas impactadas",
+      "value": "200",
+      "suffix": "+",
+      "icon": "people"
+    },
+    {
+      "label": "Ahorro anual proyectado",
+      "value": "USD 1.889.000",
+      "suffix": "",
+      "icon": "trend"
+    },
+    {
+      "label": "Frentes atendidos",
+      "value": "7",
+      "suffix": "",
+      "icon": "grid"
+    }
+  ],
+  "logros": [
+    "Se formalizó la “Fuente de la Verdad”: manual integral que rige el ciclo de vida end-to-end de toda iniciativa en la DST.",
+    "Se diseñó y puso en producción un toolkit de 10+ agentes de IA en 3 plataformas (Copilot, ChatGPT, Rovo) para equipos de agilidad y análisis.",
+    "Se modernizó el proceso de solicitudes de recursos en Jira, reduciendo 75% el esfuerzo operativo de 70 mandos medios.",
+    "Se sostuvo acompañamiento ágil mensual a más de 35 iniciativas activas distribuidas en 7 frentes de negocio."
+  ],
+  "iniciativas": [
+    {
+      "id": "gdd",
+      "codigo": "MASTER-2785",
+      "nombre": "Rediseño del GDD y Simplificación del Proceso de Discovery",
+      "nombreCorto": "Assessment y Refactoring GDD",
+      "estado": "Finalizada",
+      "horasEst": 229,
+      "horasIns": 150,
+      "inversion": 8466,
+      "roi": "8.817%",
+      "frentes": [
+        "sistemas",
+        "agilidad"
+      ],
+      "resumen": "Rediseño integral del proceso de Gestión de la Demanda de la Dirección de Sistemas y Tecnología, priorizando simplicidad, fluidez y decisiones de management por sobre restricciones técnicas.",
+      "objetivo": "Rediseñar de punta a punta el proceso de Gestión de la Demanda de la DST, priorizando simplicidad y decisiones de management por sobre restricciones técnicas.",
+      "trabajoRealizado": [
+        "Assessment completo del proceso actual, identificando cuellos de botella técnicos y organizacionales.",
+        "Rediseño del flujo completo: estados, autoridades de aprobación, solicitudes de recursos y restricciones técnicas.",
+        "Producción de la “Fuente de la Verdad” (Manual Integral de Gestión de Iniciativas): más de 50 páginas cubriendo el ciclo Backlog → Finalizada, 4 roles, 3 Gates de Arquitectura, estimaciones/presupuesto y Capacity Planning con Tempo.",
+        "Diseño y publicación del Mapa del Proceso de Gestión de la Demanda SMG 2026, con etapas, responsables, entregables, técnicas y puntos de intervención de agentes de IA."
+      ],
+      "resultados": [
+        "112 personas impactadas por el nuevo proceso.",
+        "Ahorro anual proyectado de USD 754.788.",
+        "ROI de 8.817% con repago en ~4 días hábiles."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas impactadas",
+          "value": "112"
+        },
+        {
+          "label": "Ahorro anual proyectado",
+          "value": "USD 754.788"
+        },
+        {
+          "label": "ROI",
+          "value": "8.817%"
+        },
+        {
+          "label": "Repago",
+          "value": "~4 días hábiles"
+        }
+      ],
+      "entregablesIds": [
+        "fuente-verdad",
+        "mapa-proceso",
+        "onboarding-gdd-1",
+        "onboarding-gdd-2",
+        "template-gate",
+        "guia-eval-financiera"
+      ]
+    },
+    {
+      "id": "ia-toolkit",
+      "codigo": "MASTER-2780",
+      "nombre": "Investigación, Construcción y Adopción de IA (Rovo, Copilot, ChatGPT)",
+      "nombreCorto": "Consultoría en Metodologías e IA (Assessment y MVP)",
+      "estado": "Finalizada",
+      "horasEst": 229,
+      "horasIns": 142,
+      "inversion": 8466,
+      "roi": "7.080%",
+      "frentes": [
+        "agilidad"
+      ],
+      "resumen": "Diseño e implementación de un toolkit centralizado de IA que asiste a los equipos de agilidad y análisis en el relevamiento, estructuración y definición de soluciones.",
+      "objetivo": "Diseñar e implementar un toolkit centralizado de agentes de IA que asista a los equipos de agilidad y análisis en el relevamiento, estructuración y definición de soluciones.",
+      "trabajoRealizado": [
+        "Diseño de JIR-4081 (Kit de Herramientas de IA para Tareas Funcionales), con 26 subtareas de protocolos, templates y reglas para agentes en 3 plataformas.",
+        "Construcción de 10 agentes especializados: relevamiento de ideas, construcción de iniciativas y épicas, user story mapping, definición de historias, validador de compliance, onboarding de GATES, solicitudes de recursos, minutas, FAQ del GDD y carry over de iniciativas JPD.",
+        "Construcción de asistentes virtuales de onboarding para el proceso de incorporación de nuevos colaboradores."
+      ],
+      "resultados": [
+        "102 personas impactadas por la adopción del toolkit.",
+        "Ahorro anual proyectado de USD 607.560.",
+        "ROI de 7.080% con repago en ~5 días hábiles."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas impactadas",
+          "value": "102"
+        },
+        {
+          "label": "Ahorro anual proyectado",
+          "value": "USD 607.560"
+        },
+        {
+          "label": "ROI",
+          "value": "7.080%"
+        },
+        {
+          "label": "Repago",
+          "value": "~5 días hábiles"
+        },
+        {
+          "label": "Agentes de IA construidos",
+          "value": "10+"
+        }
+      ],
+      "entregablesIds": [
+        "agente-doc-automatizaciones",
+        "asistente-relevamiento",
+        "asistente-construccion",
+        "asistente-desagregacion",
+        "asistente-definicion-hu",
+        "asistente-faq-gdd",
+        "asistente-gates",
+        "asistente-compliance",
+        "asistente-minutas"
+      ],
+      "tablaAgentes": [
+        {
+          "agente": "Relevamiento de Ideas",
+          "funcion": "Guía la estructuración de ideas previo a formularlas como iniciativa",
+          "plataformas": "Copilot"
+        },
+        {
+          "agente": "Construcción de Iniciativas y Épicas",
+          "funcion": "Construye iniciativas desde un input, propone desagregación, estimación y cronograma",
+          "plataformas": "Copilot, Rovo, ChatGPT"
+        },
+        {
+          "agente": "User Story Mapping",
+          "funcion": "Desagrega épicas en historias de usuario y tareas con estimación de alto nivel",
+          "plataformas": "Copilot, Rovo"
+        },
+        {
+          "agente": "Definición de Historias de Usuario",
+          "funcion": "Construye historias con nivel suficiente de definición funcional",
+          "plataformas": "Copilot, Rovo"
+        },
+        {
+          "agente": "Validador de Compliance de Iniciativas",
+          "funcion": "Evalúa madurez estructural, financiera y estratégica para transiciones entre fases",
+          "plataformas": "Copilot, ChatGPT, Rovo"
+        },
+        {
+          "agente": "Onboarding y GATES de Arquitectura",
+          "funcion": "GATE Evaluator, GATE Builder (Essentials) y GATE Auditor",
+          "plataformas": "Copilot, Rovo"
+        },
+        {
+          "agente": "Solicitudes de Recursos (Horas)",
+          "funcion": "Genera solicitudes de horas integrado con planificación de talentos",
+          "plataformas": "Rovo"
+        },
+        {
+          "agente": "Elaboración de Minutas",
+          "funcion": "Confecciona minutas a partir de texto/audio/video",
+          "plataformas": "Copilot"
+        },
+        {
+          "agente": "FAQ sobre GDD (“Asdrux”)",
+          "funcion": "Asistente virtual basado en la “Fuente de la Verdad”",
+          "plataformas": "Copilot, Rovo"
+        },
+        {
+          "agente": "Carry Over de Iniciativas JPD",
+          "funcion": "Gestión del carry over de iniciativas de Jira Product Discovery",
+          "plataformas": "Copilot"
+        }
+      ]
+    },
+    {
+      "id": "automatizaciones-jira",
+      "codigo": "MASTER-3111",
+      "nombre": "Automatizaciones de Jira, Gobierno y Estandarización",
+      "nombreCorto": "Modernización Solicitudes de Recursos Fase 2",
+      "estado": "Entrega",
+      "horasEst": null,
+      "horasIns": 100,
+      "inversion": 6000,
+      "roi": "2.900%",
+      "frentes": [
+        "sistemas"
+      ],
+      "resumen": "Modernización del proceso de solicitudes de recursos en Jira: rediseño de formularios, automatización de validaciones y descentralización de Jira Discovery.",
+      "objetivo": "Modernizar y optimizar el proceso de solicitudes de recursos en Jira, simplificando formularios, automatizando validaciones y descentralizando Jira Discovery.",
+      "trabajoRealizado": [
+        "Rediseño y simplificación de formularios de solicitud de recursos.",
+        "Automatización de validaciones y flujos, con integración a reportes.",
+        "Relevamiento de procesos, workshops de definición y validación con stakeholders a través de 4 épicas.",
+        "Internalización y descentralización de Jira Discovery (MASTER-3088): identificación de más de 100 automatizaciones existentes, documentación de configuraciones y estandarización de procesos operativos.",
+        "Generación de un asistente virtual que analiza automatizaciones y genera draft de manuales de usuario y mantenimiento.",
+        "Guías, material de referencia y capacitación formal (sesiones, prácticas supervisadas, pruebas de autonomía y sesiones 1 a 1)."
+      ],
+      "resultados": [
+        "70 mandos medios beneficiados por la simplificación del proceso.",
+        "Reducción del 75% en el esfuerzo de solicitudes.",
+        "Ahorro anual de USD 252.000 con ROI de 2.900%."
+      ],
+      "indicadores": [
+        {
+          "label": "Mandos medios beneficiados",
+          "value": "70"
+        },
+        {
+          "label": "Reducción de esfuerzo",
+          "value": "75%"
+        },
+        {
+          "label": "Ahorro anual",
+          "value": "USD 252.000"
+        },
+        {
+          "label": "ROI",
+          "value": "2.900%"
+        }
+      ],
+      "entregablesIds": [
+        "manual-usuario-auto",
+        "manual-soporte-auto"
+      ]
+    },
+    {
+      "id": "acompanamiento-multiequipo",
+      "codigo": "MASTER-3222",
+      "nombre": "Acompañamiento y Consultoría en Agilidad e IA Multi-equipo",
+      "nombreCorto": "Acompañamiento Agilidad e IA Multi-equipo",
+      "estado": "Entrega",
+      "horasEst": 212,
+      "horasIns": 201,
+      "inversion": 8780,
+      "roi": "5.789%",
+      "frentes": [
+        "seguros",
+        "procesos-corporativos",
+        "servicios"
+      ],
+      "resumen": "Servicio de consultoría y acompañamiento en agilidad e IA para equipos de Seguros, Procesos Corporativos y Digitales (SGI, UC, Workplace & IT Services), Servicios y Microinformática, con foco en simplicidad, velocidad y calidad de entregables.",
+      "objetivo": "Brindar consultoría y acompañamiento en agilidad e IA a equipos de Seguros, Procesos Corporativos y Digitales, y Servicios y Microinformática, mejorando simplicidad, velocidad y calidad de entregables.",
+      "trabajoRealizado": [
+        "Formulación de propuesta para la Gerencia de Servicios: discovery, sync con stakeholders y diseño de solución.",
+        "Diseño e implementación del tablero Kanban unificado para Servicios y Microinformática: as-is, columnas/estados, priorización 80/20, configuración en Jira, piloto, estabilización y cierre de MVP.",
+        "Soporte metodológico, agilidad e IA en Sprint 1 y Sprint 2 a cuatro equipos: Seguros, Procesos Corporativos y Digitales, Cross Dirección y Cross Agilidad.",
+        "Definición de Sprint Extendido y control de cambio (de 104h a 212h) para cierre de Q2, con aval formalizado."
+      ],
+      "resultados": [
+        "17 personas clave impactadas (6 jefes + 11 coordinadores).",
+        "Ahorro anual de USD 244.800 con ROI de 5.789%."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas clave impactadas",
+          "value": "17"
+        },
+        {
+          "label": "Ahorro anual",
+          "value": "USD 244.800"
+        },
+        {
+          "label": "ROI",
+          "value": "5.789%"
+        }
+      ],
+      "entregablesIds": []
+    },
+    {
+      "id": "soporte-seguros",
+      "codigo": "MASTER-2294",
+      "nombre": "Soporte Operativo a Seguros (Acompañamiento Mensual)",
+      "nombreCorto": "Servicios Agilidad Seguros",
+      "estado": "Finalizada",
+      "horasEst": 312,
+      "horasIns": 235,
+      "inversion": 9360,
+      "roi": "104%",
+      "frentes": [
+        "seguros"
+      ],
+      "resumen": "Consultoría experta, coaching, automatización y reporting para consolidar la madurez ágil nivel 3 (HA) en la Gerencia de Seguros.",
+      "objetivo": "Consolidar la madurez ágil nivel 3 en la Gerencia de Seguros (121 personas) mediante consultoría, coaching, automatización y reporting.",
+      "trabajoRealizado": [
+        "Planificación y gestión: mentoring, planificación y seguimiento de actividades, gestión de backlog.",
+        "Prácticas ágiles y metodológicas: comunidades de práctica, estándares metodológicos, capacitaciones.",
+        "Sistematización de la gestión: automatizaciones en Jira, Teams, PowerBI, EazyBI, Power Automate e IA.",
+        "Gestión de OKRs: entendimiento, validación y seguimiento.",
+        "Continuidad en Q2 bajo MASTER-3222 con soporte metodológico mensual (abril, mayo, junio)."
+      ],
+      "resultados": [
+        "121 personas de la Gerencia de Seguros alcanzadas por el acompañamiento.",
+        "Consolidación de madurez ágil nivel 3 (HA)."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas impactadas",
+          "value": "121"
+        },
+        {
+          "label": "ROI",
+          "value": "104%"
+        }
+      ],
+      "entregablesIds": []
+    },
+    {
+      "id": "soporte-sgi",
+      "codigo": "MASTER-2328",
+      "nombre": "Soporte Operativo a SGI (Acompañamiento Mensual)",
+      "nombreCorto": "Servicios Agilidad SGI",
+      "estado": "Finalizada",
+      "horasEst": 312,
+      "horasIns": 204.5,
+      "inversion": 9360,
+      "roi": "104%",
+      "frentes": [
+        "sgi"
+      ],
+      "resumen": "Consultoría experta, coaching, automatización y reporting para consolidar la madurez ágil nivel 3 (HA) en la Gerencia de SGI.",
+      "objetivo": "Consolidar la madurez ágil nivel 3 en la Gerencia de SGI (81 personas) mediante consultoría, coaching, automatización y reporting.",
+      "trabajoRealizado": [
+        "Planificación y gestión: mentoring, planificación y seguimiento de actividades, gestión de backlog.",
+        "Prácticas ágiles y metodológicas: comunidades de práctica, estándares metodológicos, capacitaciones.",
+        "Sistematización de la gestión: automatizaciones en Jira, Teams, PowerBI, EazyBI, Power Automate e IA.",
+        "Gestión de OKRs: entendimiento, validación y seguimiento.",
+        "Continuidad en Q2 bajo MASTER-3222 con soporte metodológico mensual (abril, mayo, junio)."
+      ],
+      "resultados": [
+        "81 personas de la Gerencia de SGI alcanzadas por el acompañamiento.",
+        "Consolidación de madurez ágil nivel 3 (HA)."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas impactadas",
+          "value": "81"
+        },
+        {
+          "label": "ROI",
+          "value": "104%"
+        }
+      ],
+      "entregablesIds": []
+    }
+  ],
+  "entregables": {
+    "fuente-verdad": {
+      "nombre": "Fuente de la Verdad — Manual Integral de Gestión de Iniciativas",
+      "descripcion": "Manual de más de 50 páginas que formaliza el ciclo de vida end-to-end de una iniciativa.",
+      "tipo": "Documento",
+      "link": "https://swissmedicalgroup.sharepoint.com/:b:/s/Gestiondelademanda/IQBz36gzWwY3SI1yj3M9wRC2AbQ7P9jTkXNLjEKM5ujYjk0?e=JonY3b"
+    },
+    "mapa-proceso": {
+      "nombre": "Mapa del Proceso de Gestión de la Demanda SMG 2026",
+      "descripcion": "Artefacto visual con etapas, responsables, entregables y puntos de intervención de IA.",
+      "tipo": "Diagrama",
+      "link": "https://spreo.io/BO5H1F69JKLI"
+    },
+    "onboarding-gdd-1": {
+      "nombre": "Onboarding del Proceso de Gestión de la Demanda — Parte 1",
+      "descripcion": "Video de actualización del proceso GDD (febrero 2026).",
+      "tipo": "Video",
+      "link": "https://swissmedicalgroup.sharepoint.com/:v:/s/Gestiondelademanda/IQA3r_66oztyR5YHrVsJ1iRdAZDcTIHDIGwDRuIcc4Wq8hs?e=GLop4g"
+    },
+    "onboarding-gdd-2": {
+      "nombre": "Onboarding del Proceso de Gestión de la Demanda — Parte 2",
+      "descripcion": "Video de actualización del proceso GDD (febrero 2026).",
+      "tipo": "Video",
+      "link": "https://swissmedicalgroup.sharepoint.com/:v:/s/Gestiondelademanda/IQC_nsNYo_2FRIkxzl_3ZpKuAdPSBVAMTb9FT4vw0RPRiLo?e=JZoF2d"
+    },
+    "template-gate": {
+      "nombre": "Template de Gate de Arquitectura",
+      "descripcion": "Generador de flujos para Gates de Arquitectura en Jira.",
+      "tipo": "Template",
+      "link": "https://swiss-medical.atlassian.net/jira/settings/automation#/rule/0199e8f2-52c9-7c37-9951-1a5150018f56"
+    },
+    "guia-eval-financiera": {
+      "nombre": "Guía para la Evaluación Financiera de Proyectos",
+      "descripcion": "Planilla de referencia para evaluación financiera de iniciativas.",
+      "tipo": "Planilla",
+      "link": "https://swissmedicalgroup.sharepoint.com/:x:/s/Gestiondelademanda/IQA4AJhUbnsRRKZXnu5Ezb0-ASnqGpWEai3aJbNZfUp_exI?e=3ZyO7t"
+    },
+    "manual-usuario-auto": {
+      "nombre": "Automatizaciones de Jira — Manual de Usuario",
+      "descripcion": "Guía de uso de las automatizaciones implementadas en Jira.",
+      "tipo": "Documento",
+      "link": "https://swissmedicalgroup.sharepoint.com/:w:/s/Gestiondelademanda/IQAbNta5CbDiTLm3m05qJoydAdxLzBTNG0jko1PPoteZTUU?e=fQjnAI"
+    },
+    "manual-soporte-auto": {
+      "nombre": "Automatizaciones de Jira — Manual de Soporte Técnico",
+      "descripcion": "Documentación técnica para el mantenimiento de automatizaciones.",
+      "tipo": "Documento",
+      "link": "https://swissmedicalgroup.sharepoint.com/:w:/s/Gestiondelademanda/IQDntmhzboGISaAO-5Uwo1PNAfxjz4izmhuXIK4V48GusTg?e=fSr6ls"
+    },
+    "agente-doc-automatizaciones": {
+      "nombre": "Agente de Documentación de Automatizaciones",
+      "descripcion": "Analiza automatizaciones existentes y genera draft de manuales.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft/chat/?titleId=T_116d9e42-3be0-e172-dc56-2d325f3cafb7&source=embedded-builder"
+    },
+    "asistente-relevamiento": {
+      "nombre": "Asistente Conversacional para Relevamiento de Ideas",
+      "descripcion": "Guía la estructuración de ideas de usuarios previo a formularlas como iniciativa.",
+      "tipo": "Agente IA",
+      "link": "https://ideaflow.asdru.space/"
+    },
+    "asistente-construccion": {
+      "nombre": "Asistente para Construcción de Iniciativas y Épicas",
+      "descripcion": "Construye iniciativas desde un input y propone desagregación, estimación y cronograma.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft:443/chat/?titleId=T_5a36c526-b320-7ef8-05a7-a6007f716547&source=embedded-builder"
+    },
+    "asistente-desagregacion": {
+      "nombre": "Asistente para Desagregación de Épicas en Historias de Usuario",
+      "descripcion": "User Story Mapping asistido por IA.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft:443/chat/?titleId=T_6289daff-01a8-29fd-eae6-3dd47230383d&source=embedded-builder"
+    },
+    "asistente-definicion-hu": {
+      "nombre": "Asistente para Definición Funcional de Historias de Usuario",
+      "descripcion": "Construye historias de usuario con nivel suficiente de definición funcional.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft:443/chat/?titleId=T_e6e43e72-4f93-c9c5-99be-1648dcbce97d&source=embedded-builder"
+    },
+    "asistente-faq-gdd": {
+      "nombre": "Asistente de Onboarding — FAQ sobre GDD (“Asdrux”)",
+      "descripcion": "Asistente virtual basado en la Fuente de la Verdad para consultas sobre gestión de iniciativas.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft:443/chat/?titleId=T_cbad6627-0d60-938c-9fbb-f8dcdd10f2bb&source=embedded-builder"
+    },
+    "asistente-gates": {
+      "nombre": "Asistente de Onboarding y Desarrollo de GATES de Arquitectura",
+      "descripcion": "GATE Evaluator, GATE Builder y GATE Auditor para uso colaborativo.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft/chat/?titleId=T_e622055b-04fa-349b-7d07-79d59b4f1067&source=embedded-builder"
+    },
+    "asistente-compliance": {
+      "nombre": "Asistente para Validar Compliance de una Iniciativa",
+      "descripcion": "Evalúa madurez estructural, financiera y estratégica para transiciones entre fases.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft:443/chat/?titleId=T_41afa8eb-2367-cb97-de4d-5551da1fdf15&source=embedded-builder"
+    },
+    "asistente-minutas": {
+      "nombre": "Asistente para Elaboración de Minutas",
+      "descripcion": "Confecciona minutas a partir de texto, audio o video.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft:443/chat/?titleId=T_d5d70436-0c79-1900-ef03-eaff3877171f&source=embedded-builder"
+    }
+  },
+  "frentes": [
+    {
+      "id": "agilidad",
+      "nombre": "Agilidad",
+      "descripcion": "Frente transversal que concentra las 6 iniciativas propias dirigidas y concretadas durante H1: rediseño del GDD, toolkit de IA, modernización de Jira y acompañamiento multi-equipo.",
+      "iniciativasPropias": [
+        "gdd",
+        "ia-toolkit",
+        "automatizaciones-jira",
+        "acompanamiento-multiequipo",
+        "soporte-seguros",
+        "soporte-sgi"
+      ]
+    },
+    {
+      "id": "seguros",
+      "nombre": "Seguros",
+      "descripcion": "Acompañamiento ágil mensual y consultoría especializada a la Gerencia de Seguros, con consolidación de madurez ágil nivel 3.",
+      "iniciativasPropias": [
+        "soporte-seguros",
+        "acompanamiento-multiequipo"
+      ],
+      "equipos": [
+        {
+          "pm": "Damian Carmie / Luis Liñares (SEG)",
+          "ejemplos": "SISE Centralización Tesorería II, Reaseguros – Siniestros, GAUS a SISE Etapa 2"
+        },
+        {
+          "pm": "Walter Rodriguez / Cristian Schiffino / Gabriel Alfonso / Marcos Maciel / Pedro Irala (SEG/VIDA)",
+          "ejemplos": "Web Seguros PJ, Mejoras OV Patrimoniales, Denuncia Siniestros AP"
+        }
+      ]
+    },
+    {
+      "id": "art",
+      "nombre": "ART",
+      "descripcion": "Acompañamiento metodológico mensual a los equipos de ART dentro del soporte multi-frente de H1.",
+      "iniciativasPropias": [],
+      "equipos": [
+        {
+          "pm": "Isabel Uslenghi / Pablo Zuccoli / Dionel Marmori (ART)",
+          "ejemplos": "Telemedicina ML NET, Mejoras Incapacidades, Trazabilidad chatbot, Reportes CMA"
+        },
+        {
+          "pm": "Hernan Ruiz / Gabriela Siniscalchi (ART)",
+          "ejemplos": "Mejoras Smart, Sisper, PREVEN, Start.Net Cobranzas, RPA Estabilidad de robots"
+        },
+        {
+          "pm": "Marcelo Conde (ART/SEG)",
+          "ejemplos": "AIMED 1 y 2 (IA), Smart.Net Portal Prestadores, Mesa Entrada Digital Legales"
+        }
+      ]
+    },
+    {
+      "id": "vida",
+      "nombre": "VIDA",
+      "descripcion": "Acompañamiento metodológico mensual a los equipos de VIDA dentro del soporte multi-frente de H1.",
+      "iniciativasPropias": [],
+      "equipos": [
+        {
+          "pm": "Maximiliano Clerici / Leonardo Banegas / Nicolás Spella (VIDA)",
+          "ejemplos": "Reaseguro Cesión, Automatización Interfaces Contables, Bonus, Vigía"
+        }
+      ]
+    },
+    {
+      "id": "sgi",
+      "nombre": "SGI",
+      "descripcion": "Acompañamiento ágil mensual y consultoría especializada a la Gerencia de SGI, con consolidación de madurez ágil nivel 3.",
+      "iniciativasPropias": [
+        "soporte-sgi"
+      ],
+      "equipos": [
+        {
+          "pm": "Maira Masmud (SGI Seguros)",
+          "ejemplos": "Soporte metodológico, reporting automatizado, mentoring, consolidación nivel 2"
+        },
+        {
+          "pm": "Natalia Jaureguiberry (SGI Clientes, Prestadores y prospectos)",
+          "ejemplos": "Soporte metodológico, reporting automatizado, mentoring, consolidación nivel 2"
+        }
+      ]
+    },
+    {
+      "id": "procesos-corporativos",
+      "nombre": "Procesos Corporativos y Digitales",
+      "descripcion": "Consultoría y acompañamiento en agilidad e IA a SGI, UC, Workplace & IT Services dentro del acompañamiento multi-equipo.",
+      "iniciativasPropias": [
+        "acompanamiento-multiequipo"
+      ]
+    },
+    {
+      "id": "servicios",
+      "nombre": "Servicios y Microinformática",
+      "descripcion": "Diseño e implementación del tablero Kanban unificado y soporte metodológico como parte del acompañamiento multi-equipo.",
+      "iniciativasPropias": [
+        "acompanamiento-multiequipo"
+      ]
+    },
+    {
+      "id": "sistemas",
+      "nombre": "Dirección de Sistemas y Tecnología",
+      "descripcion": "Foco del rediseño del GDD y la modernización de automatizaciones en Jira. Concentró el 83% de las horas de recobro de servicios internos en H1.",
+      "iniciativasPropias": [
+        "gdd",
+        "automatizaciones-jira"
+      ]
+    },
+    {
+      "id": "datos",
+      "nombre": "Datos",
+      "descripcion": "Unidad incluida en el acompañamiento ágil mensual multi-frente durante H1, dentro de las más de 35 iniciativas activas cubiertas.",
+      "iniciativasPropias": []
+    }
+  ],
+  "indicadoresConsolidados": [
+    {
+      "label": "Iniciativas dirigidas y concretadas",
+      "value": "6"
+    },
+    {
+      "label": "Inversión total gestionada",
+      "value": "USD 50.432"
+    },
+    {
+      "label": "Horas insumidas en iniciativas propias",
+      "value": "1.032,5h"
+    },
+    {
+      "label": "Frentes de trabajo atendidos",
+      "value": "7",
+      "detalle": "ART, Seguros, VIDA, Datos, SGI, Servicios, Agilidad"
+    },
+    {
+      "label": "Agentes de IA diseñados/construidos",
+      "value": "10+",
+      "detalle": "en 3 plataformas"
+    },
+    {
+      "label": "Documentos estructurales producidos",
+      "value": "2",
+      "detalle": "Fuente de la Verdad + Mapa del Proceso GDD"
+    },
+    {
+      "label": "Personas coacheadas / capacitadas",
+      "value": "6+",
+      "detalle": "3 onboarding + coaching + capacitación"
+    },
+    {
+      "label": "Personas impactadas (alcance de mejoras)",
+      "value": "200+",
+      "detalle": "Seguros 121 + SGI 81 + mandos medios 70"
+    },
+    {
+      "label": "Ahorro anual acumulado proyectado",
+      "value": "USD 1.889.000",
+      "detalle": "Suma de las 6 iniciativas"
+    }
+  ],
+  "tablaConsolidadoIniciativas": [
+    {
+      "nombre": "Assessment y Refactoring GDD",
+      "codigo": "MASTER-2785",
+      "horasEst": 229,
+      "horasIns": 150,
+      "usd": 8466,
+      "roi": "8.817%"
+    },
+    {
+      "nombre": "Consultoría en Metodologías e IA (Assessment y MVP)",
+      "codigo": "MASTER-2780",
+      "horasEst": 229,
+      "horasIns": 142,
+      "usd": 8466,
+      "roi": "7.080%"
+    },
+    {
+      "nombre": "Servicios Agilidad Seguros",
+      "codigo": "MASTER-2294",
+      "horasEst": 312,
+      "horasIns": 235,
+      "usd": 9360,
+      "roi": "104%"
+    },
+    {
+      "nombre": "Servicios Agilidad SGI",
+      "codigo": "MASTER-2328",
+      "horasEst": 312,
+      "horasIns": 204.5,
+      "usd": 9360,
+      "roi": "104%"
+    },
+    {
+      "nombre": "Modernización Solicitudes de Recursos Fase 2",
+      "codigo": "MASTER-3111",
+      "horasEst": 100,
+      "horasIns": 100,
+      "usd": 6000,
+      "roi": "2.900%"
+    },
+    {
+      "nombre": "Acompañamiento Agilidad e IA Multi-equipo",
+      "codigo": "MASTER-3222",
+      "horasEst": 212,
+      "horasIns": 201,
+      "usd": 8780,
+      "roi": "5.789%"
+    }
+  ],
+  "totales": {
+    "horasEst": 1394,
+    "horasIns": 1032.5,
+    "usd": 50432
+  },
+  "recobro": {
+    "porFrente": [
+      {
+        "frente": "Dirección de Sistemas (Cross Org.)",
+        "horas": 785,
+        "pct": 83
+      },
+      {
+        "frente": "Seguros",
+        "horas": 104,
+        "pct": 11
+      },
+      {
+        "frente": "Procesos Corporativos y Digitales",
+        "horas": 55,
+        "pct": 6
+      }
+    ],
+    "porMes": [
+      {
+        "mes": "Ene",
+        "sistemas": 160,
+        "seguros": 0,
+        "pcd": 0
+      },
+      {
+        "mes": "Feb",
+        "sistemas": 144,
+        "seguros": 0,
+        "pcd": 0
+      },
+      {
+        "mes": "Mar",
+        "sistemas": 160,
+        "seguros": 0,
+        "pcd": 0
+      },
+      {
+        "mes": "Abr",
+        "sistemas": 123,
+        "seguros": 33,
+        "pcd": 4
+      },
+      {
+        "mes": "May",
+        "sistemas": 72,
+        "seguros": 34,
+        "pcd": 46
+      },
+      {
+        "mes": "Jun",
+        "sistemas": 126,
+        "seguros": 37,
+        "pcd": 5
+      }
+    ]
+  },
+  "proximosPasos": [
+    {
+      "prioridad": "Alta",
+      "eje": "Rebalanceo de la distribución de servicios",
+      "impacto": "Mayor impacto de negocio, menor desgaste operativo",
+      "descripcion": "El 83% de las horas facturadas en H1 (785 de 944) se concentraron en la Dirección de Sistemas, mientras Seguros, LIFE, ART y Procesos Corporativos Digitales recibieron una proporción menor pese a generar mayor impacto de negocio.",
+      "meta": "Invertir la proporción hacia ≥75% Seguros + Procesos Corporativos Digitales / ≤25% Sistemas.",
+      "acciones": [
+        "Formalizar acuerdos de servicio con Seguros y PCD para absorber esa capacidad.",
+        "Reducir la dependencia operativa de Sistemas aprovechando la descentralización lograda en H1.",
+        "Documentar el racional del rebalanceo con datos de impacto de negocio."
+      ]
+    },
+    {
+      "prioridad": "Alta",
+      "eje": "Adopción masiva de Ralph como framework de IA oficial",
+      "impacto": "Estandarización institucional de IA para funcionales y desarrolladores",
+      "descripcion": "El toolkit de 10+ agentes construido en H1 debe escalar hacia Ralph como framework de IA institucional, tanto para perfiles funcionales como técnicos.",
+      "acciones": [
+        "Impulsar la adopción de los agentes ya construidos mediante campañas de activación, demos y sesiones hands-on por frente.",
+        "Extender Ralph a casos de uso técnicos: generación de código, revisión de PRs, documentación técnica y testing.",
+        "Monitorear métricas de adopción por agente y audiencia: usuarios activos, frecuencia de uso, tiempo ahorrado.",
+        "Implementar un dashboard de seguimiento que muestre tracción real a la Dirección."
+      ]
+    },
+    {
+      "prioridad": "Alta",
+      "eje": "Medición de madurez y evolución del framework metodológico",
+      "impacto": "Evolución sostenida del framework metodológico",
+      "descripcion": "El acompañamiento de H1 elevó el nivel de adopción ágil en múltiples equipos; corresponde medir el estado actual y trazar nuevas líneas de acción.",
+      "acciones": [
+        "Ejecutar una nueva medición de madurez ágil en Seguros, SGI, Servicios y PCD, usando el modelo de niveles como baseline.",
+        "Comparar con la medición anterior para identificar avances, estancamientos y retrocesos por equipo y práctica.",
+        "Definir planes de acción diferenciados por equipo según su nivel actual.",
+        "Establecer metas de madurez por equipo para cierre de 2026, con hitos en Q3 y Q4.",
+        "Incorporar la adopción de Ralph/IA como dimensión adicional del modelo de madurez."
+      ]
+    },
+    {
+      "prioridad": "Media",
+      "eje": "Programa estructurado de capacitación y descentralización",
+      "impacto": "Autonomía de equipos, sostenibilidad a largo plazo",
+      "descripcion": "La descentralización de Jira Discovery y las capacitaciones de H1 fueron mayormente ad-hoc; en H2 conviene consolidarlas en un programa integral.",
+      "acciones": [
+        "Diseñar tracks diferenciados (básico, intermedio, avanzado) sobre GDD, automatizaciones de Jira, agentes de IA y buenas prácticas ágiles.",
+        "Definir un calendario de capacitaciones recurrentes por frente de trabajo.",
+        "Medir la autonomía real de los equipos capacitados e identificar temas con dependencia persistente.",
+        "Formalizar referentes por frente que resuelvan el 80% de las consultas operativas.",
+        "Incorporar los asistentes de onboarding como canal permanente de formación continua."
+      ]
+    },
+    {
+      "prioridad": "Media",
+      "eje": "Ciclo de mejora continua del GDD",
+      "impacto": "Madurez y evolución del proceso",
+      "descripcion": "La Fuente de la Verdad y el Mapa de Proceso necesitan un ciclo de vida activo de revisión y mejora.",
+      "acciones": [
+        "Implementar un mecanismo de feedback para reportar fricciones o sugerencias sobre el proceso.",
+        "Planificar una revisión trimestral del manual y el mapa, incorporando aprendizajes de la operación real.",
+        "Medir tiempos de ciclo de las iniciativas bajo el nuevo proceso vs. el anterior."
+      ]
+    },
+    {
+      "prioridad": "Normal",
+      "eje": "Consolidación técnica: de scripts reactivos a plataforma",
+      "impacto": "Orden, trazabilidad y escalabilidad técnica",
+      "descripcion": "El trabajo técnico de H1 (scripts, automatizaciones, APIs) fue valioso; en H2 conviene elevar su nivel de madurez.",
+      "acciones": [
+        "Consolidar las automatizaciones en un catálogo documentado en Confluence con ownership claro.",
+        "Explorar integraciones más profundas entre Jira, Tempo y herramientas de BI para reporting end-to-end."
+      ]
+    },
+    {
+      "prioridad": "Normal",
+      "eje": "Fortalecer la visibilidad del rol de Santex",
+      "impacto": "Posicionamiento estratégico",
+      "descripcion": "Como representante de Santex ante SMG, corresponde formalizar la visibilidad del valor entregado.",
+      "acciones": [
+        "Formalizar un reporte periódico de valor entregado por Santex a SMG, usando los datos de H1 como baseline.",
+        "Proponer iniciativas conjuntas Santex-SMG que demuestren innovación y diferenciación."
+      ]
+    }
+  ],
+  "jiraBaseUrl": "https://swiss-medical.atlassian.net/browse/"
+}

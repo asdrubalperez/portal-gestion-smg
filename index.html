@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Ejecutivo de Gestión · Swiss Medical Group</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+  // ============================================================
+  // MANIFIESTO DE PERÍODOS DISPONIBLES
+  //
+  // Este es el ÚNICO lugar que hay que tocar para agregar un
+  // período nuevo (ej. cuando llegue el informe de Q3 2026):
+  //
+  //   1. Sumar el archivo de datos en /data/<id>.json
+  //      (mismo formato que /data/H1-2026.json)
+  //   2. Agregar una entrada acá abajo
+  //   3. Poner isCurrent: true en el nuevo período y
+  //      false en el anterior (para que sea el que abre
+  //      por defecto)
+  //
+  // No hace falta tocar app.js ni styles.css.
+  // ============================================================
+  var PERIODS_META = [
+    { id: "H1-2026", label: "H1 2026", file: "data/H1-2026.json", isCurrent: true },
+  ];
+
+  var DEFAULT_PERIOD_ID = PERIODS_META.find(function (p) { return p.isCurrent; }).id;
+</script>
+
+<script src="app.js"></script>
+</body>
+</html>
