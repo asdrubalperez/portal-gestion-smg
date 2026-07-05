@@ -568,6 +568,75 @@
       }
     ]
   },
-  "proximosPasos": [],
+  "proximosPasos": [
+    {
+      "prioridad": "Alta",
+      "eje": "Internalización y Descentralización de la Gestión de Jira",
+      "impacto": "Autonomía operativa del equipo interno; reducción de dependencia del especialista externo",
+      "descripcion": "El frente de Agilidad viene centralizando la administración de Jira como herramienta core de la operación de desarrollo. Se planifica un programa completo de transferencia de conocimiento hacia equipos internos, con el objetivo de que puedan operar de forma autónoma la gestión de proyectos, workflows y automatizaciones en Jira.",
+      "meta": "Lograr autonomía operativa del equipo interno en la administración de Jira Discovery, reduciendo la dependencia del especialista externo.",
+      "acciones": [
+        "Relevar workflows, permisos y automatizaciones existentes.",
+        "Documentar configuraciones y estandarizar procesos operativos.",
+        "Generar guías y material de referencia.",
+        "Sesiones de capacitación 1 a 1, prácticas supervisadas y resolución de casos.",
+        "Pruebas de autonomía operativa y ajustes finales a la documentación.",
+        "Revisión cruzada y publicación de la documentación."
+      ]
+    },
+    {
+      "prioridad": "Alta",
+      "eje": "Consultoría en Agilidad e IA para Gestión Multi-equipo (Gerencia de Servicios)",
+      "impacto": "Modelo operativo unificado para 4+ equipos con visibilidad Kanban y métricas",
+      "descripcion": "Nueva línea de trabajo que amplía el alcance del frente de Agilidad hacia la Gerencia de Servicios. Se diseñará e implementará un modelo operativo unificado con tablero Kanban, priorización 80/20 y soporte metodológico sostenido para múltiples equipos.",
+      "meta": "Implementar un modelo de gestión ágil unificado para equipos de Servicios, con tablero Kanban operativo, esquema de priorización y soporte continuo de Agilidad e IA.",
+      "acciones": [
+        "Discovery y formulación de la propuesta.",
+        "Relevamiento de procesos y documentación as-is/to-be.",
+        "Definición de estados Kanban, reglas de trabajo y priorización.",
+        "Configuración del tablero Kanban unificado en Jira.",
+        "Piloto con usuarios, captura de feedback y estabilización.",
+        "Soporte metodológico sostenido por equipo y por sprint: Procesos Corporativos, Seguros, Cross Agilidad, Cross Dirección."
+      ]
+    },
+    {
+      "prioridad": "Alta",
+      "eje": "Expansión del Acompañamiento a Seguros — Cobertura Sostenida",
+      "impacto": "Cobertura metodológica del 100% del portfolio activo de Seguros",
+      "descripcion": "El acompañamiento en Agilidad y Metodología a los equipos de Seguros (LIFE, ART, SG, UCOM) se consolida como una línea estratégica permanente. Se planifica mantener y profundizar la cobertura mensual sobre 25+ iniciativas activas.",
+      "meta": "Sostener cobertura de acompañamiento ágil al 100% del portfolio de Seguros activo, aportando metodología, seguimiento y resolución de bloqueos sprint a sprint.",
+      "acciones": [
+        "Acompañamiento mensual (abril, mayo, junio) por PM/coordinador y por iniciativa.",
+        "Participación en ceremonias de sprint y resolución de impedimentos.",
+        "Coaching a líderes y PM de cada equipo."
+      ]
+    },
+    {
+      "prioridad": "Media",
+      "eje": "Modernización del Proceso de Gestión de Solicitudes de Recursos en Jira",
+      "impacto": "Reducción de fricción y tiempos en solicitudes de recursos",
+      "descripcion": "Se identificó una oportunidad de mejorar el proceso de solicitudes de recursos, que actualmente involucra múltiples pasos manuales y formularios complejos. El foco será el rediseño, simplificación y automatización de este flujo en Jira.",
+      "meta": "Reducir tiempos y fricción en el proceso de solicitud de recursos mediante rediseño de formularios, automatización de validaciones y mejora de reportes.",
+      "acciones": [
+        "Relevamiento de procesos en distintos frentes operativos.",
+        "Workshops de definición y validación con stakeholders.",
+        "Documentación de alcance y rediseño del formulario.",
+        "Automatización de validaciones y flujos.",
+        "Integración con reportes y validación final."
+      ]
+    },
+    {
+      "prioridad": "Media",
+      "eje": "Coaching, Capacitación y Soporte Transversal",
+      "impacto": "Mayor madurez ágil en líderes y equipos clave",
+      "descripcion": "Se reforzará el eje de coaching personalizado y soporte transversal: actividades que no pertenecen a una única iniciativa pero que son clave para la madurez organizacional.",
+      "meta": "Elevar la madurez ágil y las capacidades de IA en líderes y equipos clave.",
+      "acciones": [
+        "Coaching personalizado a referentes clave y al equipo de Santex.",
+        "Soporte general de Agilidad.",
+        "Cierre de sprints y planificación de los siguientes."
+      ]
+    }
+  ],
   "jiraBaseUrl": "https://swiss-medical.atlassian.net/browse/"
 }
