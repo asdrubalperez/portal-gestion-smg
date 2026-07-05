@@ -1,0 +1,573 @@
+{
+  "meta": {
+    "autor": "Asdrubal Perez",
+    "rol": "Especialista Senior en Agilidad, Metodologías e IA · Representante de Santex ante Swiss Medical Group",
+    "periodoLabel": "Q1 2026",
+    "periodoFechas": "01/01/2026 – 31/03/2026",
+    "proximoPeriodoLabel": "Q2 2026"
+  },
+  "kpis": [
+    {
+      "label": "Iniciativas concretadas",
+      "value": "4",
+      "suffix": "",
+      "icon": "target"
+    },
+    {
+      "label": "Inversión gestionada",
+      "value": "USD 35.652",
+      "suffix": "",
+      "icon": "coin"
+    },
+    {
+      "label": "Horas insumidas",
+      "value": "422",
+      "suffix": "h",
+      "icon": "clock"
+    },
+    {
+      "label": "Personas impactadas",
+      "value": "202",
+      "suffix": "+",
+      "icon": "people"
+    },
+    {
+      "label": "Ahorro anual proyectado",
+      "value": "USD 1.422.348",
+      "suffix": "",
+      "icon": "trend"
+    },
+    {
+      "label": "Frentes atendidos",
+      "value": "7",
+      "suffix": "",
+      "icon": "grid"
+    }
+  ],
+  "logros": [
+    "Se lanzó el toolkit centralizado de IA (MASTER-2780), reduciendo un 46% del esfuerzo de relevamiento, definición y documentación de soluciones.",
+    "Se completó el rediseño integral del proceso de Gestión de la Demanda (MASTER-2785): mapeo AS-IS/TO-BE, nuevo modelo de solicitudes y RACI validado con stakeholders clave.",
+    "Se sostuvo el acompañamiento ágil mensual a las Gerencias de Seguros (121 personas) y SGI (81 personas), consolidando su madurez ágil nivel 3.",
+    "Se incorporó un nuevo colaborador al equipo (Guillermo Caudana) y se capacitaron 14 personas durante el trimestre."
+  ],
+  "iniciativas": [
+    {
+      "id": "seguros-q1",
+      "codigo": "MASTER-2294",
+      "nombre": "Servicios Especializados de Agilidad, PM, Analítica e IA para Seguros",
+      "nombreCorto": "Servicios Agilidad Seguros",
+      "estado": "Finalizada",
+      "horasEst": 240,
+      "horasIns": 71,
+      "inversion": 9360,
+      "roi": "104%",
+      "frentes": [
+        "seguros"
+      ],
+      "resumen": "Consultoría especializada orientada a consolidar el nivel 3 de madurez ágil (HA) en la Gerencia de Seguros (121 personas), trabajando sobre cuatro ejes: planificación y gestión, prácticas ágiles, sistematización de herramientas y seguimiento de OKRs.",
+      "objetivo": "Consolidar el nivel 3 de madurez ágil en la Gerencia de Seguros mediante consultoría, mentoring, automatización y seguimiento de OKRs.",
+      "trabajoRealizado": [
+        "Mentoring y coacheo forecast y a demanda (Sprints 2601Q1 y 2601Q2).",
+        "Planificación de actividades del próximo sprint.",
+        "Mejores prácticas tecnológicas y de procesos.",
+        "Sistematización y parametrización de herramientas (Jira, EazyBI, Tempo).",
+        "Seguimiento de OKRs."
+      ],
+      "resultados": [
+        "121 personas de la Gerencia de Seguros alcanzadas por el acompañamiento.",
+        "Ahorro anual proyectado de USD 30.000 con ROI de 104% (repago en 0,96 trimestres)."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas impactadas",
+          "value": "121"
+        },
+        {
+          "label": "Ahorro anual proyectado",
+          "value": "USD 30.000"
+        },
+        {
+          "label": "ROI",
+          "value": "104%"
+        },
+        {
+          "label": "Repago",
+          "value": "0,96 Q (<3 meses)"
+        }
+      ],
+      "entregablesIds": []
+    },
+    {
+      "id": "sgi-q1",
+      "codigo": "MASTER-2328",
+      "nombre": "Servicios Especializados de Agilidad, PM, Analítica e IA para SGI",
+      "nombreCorto": "Servicios Agilidad SGI",
+      "estado": "Finalizada",
+      "horasEst": 240,
+      "horasIns": 61,
+      "inversion": 9360,
+      "roi": "104%",
+      "frentes": [
+        "sgi"
+      ],
+      "resumen": "Consultoría con el mismo enfoque y modelo de cuatro ejes aplicado a la Gerencia de SGI (81 personas), apuntando a consolidar el nivel 3 de madurez ágil.",
+      "objetivo": "Consolidar el nivel 3 de madurez ágil en la Gerencia de SGI mediante consultoría, mentoring, automatización y seguimiento de OKRs.",
+      "trabajoRealizado": [
+        "Mentoring y coacheo forecast y a demanda (Sprints 2601Q1 y 2601Q2).",
+        "Planificación de actividades del próximo sprint.",
+        "Mejores prácticas tecnológicas y de procesos.",
+        "Sistematización y parametrización de herramientas.",
+        "Seguimiento de OKRs."
+      ],
+      "resultados": [
+        "81 personas de la Gerencia de SGI alcanzadas por el acompañamiento.",
+        "Ahorro anual proyectado de USD 30.000 con ROI de 104% (repago en 0,96 trimestres)."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas impactadas",
+          "value": "81"
+        },
+        {
+          "label": "Ahorro anual proyectado",
+          "value": "USD 30.000"
+        },
+        {
+          "label": "ROI",
+          "value": "104%"
+        },
+        {
+          "label": "Repago",
+          "value": "0,96 Q (<3 meses)"
+        }
+      ],
+      "entregablesIds": []
+    },
+    {
+      "id": "ia-toolkit-q1",
+      "codigo": "MASTER-2780",
+      "nombre": "Consultoría en Metodologías e IA — Etapa 1: Assessment y MVP",
+      "nombreCorto": "Consultoría en Metodologías e IA (Assessment y MVP)",
+      "estado": "Finalizada",
+      "horasEst": 176,
+      "horasIns": 138,
+      "inversion": 8466,
+      "roi": "7.080%",
+      "frentes": [
+        "agilidad"
+      ],
+      "resumen": "Iniciativa orientada a resolver la ineficiencia estructural en el proceso de interpretación y traducción de ideas de usuarios hacia soluciones de sistemas, mediante un toolkit centralizado de IA.",
+      "objetivo": "Diseñar e implementar un toolkit centralizado de agentes de IA que estandarice y acelere el análisis funcional de ideas y soluciones.",
+      "trabajoRealizado": [
+        "Assessment de procesos actuales y relevamiento de soluciones ad hoc existentes.",
+        "Conformación y facilitación de una comunidad de práctica.",
+        "Definición consensuada del alcance del MVP del toolkit de IA.",
+        "Diseño de prompts y lógica de IA, y construcción del repositorio del MVP.",
+        "Generación y validación de artefactos del MVP.",
+        "Habilitación de uso, adopción, capacitación y acompañamiento a usuarios iniciales."
+      ],
+      "resultados": [
+        "102 personas impactadas por la adopción del toolkit.",
+        "Reducción del 46% del esfuerzo de relevamiento, definición y documentación de soluciones.",
+        "Ahorro mensual de USD 50.630 (USD 607.560 anual proyectado) con ROI de 7.080%."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas impactadas",
+          "value": "102"
+        },
+        {
+          "label": "Ahorro mensual",
+          "value": "USD 50.630"
+        },
+        {
+          "label": "Ahorro anual proyectado",
+          "value": "USD 607.560"
+        },
+        {
+          "label": "ROI",
+          "value": "7.080%"
+        },
+        {
+          "label": "Repago",
+          "value": "~5 días hábiles"
+        }
+      ],
+      "entregablesIds": [
+        "asistente-relevamiento",
+        "asistente-gates",
+        "asistente-compliance",
+        "asistente-minutas"
+      ]
+    },
+    {
+      "id": "gdd-q1",
+      "codigo": "MASTER-2785",
+      "nombre": "Assessment y Refactoring en Gestión de la Demanda, Metodologías y Agilidad para la DST",
+      "nombreCorto": "Assessment y Refactoring GDD",
+      "estado": "Finalizada",
+      "horasEst": 176,
+      "horasIns": 152,
+      "inversion": 8466,
+      "roi": "8.817%",
+      "frentes": [
+        "sistemas",
+        "agilidad"
+      ],
+      "resumen": "Rediseño integral del proceso de gestión de la demanda y de solicitudes de recursos, atacando cuellos de botella técnicos y organizacionales que generaban lentitud, alta carga administrativa y bloqueos innecesarios.",
+      "objetivo": "Rediseñar de punta a punta el proceso de Gestión de la Demanda de la DST, priorizando simplicidad y decisiones de management por sobre restricciones técnicas.",
+      "trabajoRealizado": [
+        "Mapeo del proceso actual (AS-IS) e identificación de cuellos de botella.",
+        "Definición de criterios de gestión y autoridad, y diseño del modelo TO-BE simplificado de GDD, Compras y Presupuesto.",
+        "Validación del modelo TO-BE con stakeholders.",
+        "Diseño del modelo conceptual de solicitudes y redacción de reglas de negocio simplificadas.",
+        "Relevamiento y rediseño del esquema de autorizaciones, con validación con actores clave.",
+        "Definición y documentación de RACI validado, con controles de seguimiento."
+      ],
+      "resultados": [
+        "112 personas impactadas por el nuevo proceso.",
+        "Ahorro mensual de USD 62.899 (USD 754.788 anual proyectado) con ROI de 8.817%."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas impactadas",
+          "value": "112"
+        },
+        {
+          "label": "Ahorro mensual",
+          "value": "USD 62.899"
+        },
+        {
+          "label": "Ahorro anual proyectado",
+          "value": "USD 754.788"
+        },
+        {
+          "label": "ROI",
+          "value": "8.817%"
+        },
+        {
+          "label": "Repago",
+          "value": "~4 días hábiles"
+        }
+      ],
+      "entregablesIds": [
+        "mapa-proceso",
+        "onboarding-gdd-1",
+        "onboarding-gdd-2",
+        "template-gate"
+      ]
+    },
+    {
+      "id": "consultoria-demanda-q1",
+      "codigo": null,
+      "nombre": "Consultoría Personalizada a Demanda (CyG y Otros)",
+      "nombreCorto": "Consultoría a Demanda (CyG y Otros)",
+      "estado": "Finalizada",
+      "horasEst": null,
+      "horasIns": 28,
+      "inversion": null,
+      "roi": "—",
+      "frentes": [
+        "cyg",
+        "otros"
+      ],
+      "resumen": "Acompañamiento metodológico a demanda para las áreas de Control y Gestión (CyG) y otros clientes internos que no están cubiertos por una iniciativa formal en Jira.",
+      "objetivo": "Brindar soporte metodológico ad-hoc (coaching, consultas, revisión de prácticas) a áreas sin una iniciativa Jira propia asociada.",
+      "trabajoRealizado": [
+        "Consultoría personalizada a demanda para CyG (Sprints 2601Q1 y 2601Q2).",
+        "Consultoría personalizada a demanda para Otros/Cross (Sprints 2601Q1 y 2601Q2)."
+      ],
+      "resultados": [
+        "28h dedicadas a consultoría a demanda durante Q1 2026.",
+        "Sin métricas de impacto formalizadas para este tipo de consultoría — pendiente de definición a futuro."
+      ],
+      "indicadores": [
+        {
+          "label": "Horas insumidas",
+          "value": "28h"
+        }
+      ],
+      "entregablesIds": []
+    },
+    {
+      "id": "trabajo-transversal-q1",
+      "codigo": null,
+      "nombre": "Trabajo Transversal: Onboarding, Capacitación, Automatizaciones y Planificación",
+      "nombreCorto": "Trabajo Transversal (Onboarding y Capacitación)",
+      "estado": "En curso",
+      "horasEst": null,
+      "horasIns": 42,
+      "inversion": null,
+      "roi": "—",
+      "frentes": [
+        "agilidad"
+      ],
+      "resumen": "Bloque de actividades transversales que sostienen la operación del frente de Agilidad, Metodologías e IA: onboarding de nuevos colaboradores, capacitación y knowledge transfer, contribución a automatizaciones y planificación recurrente de sprints.",
+      "objetivo": "Sostener la operación transversal del frente mediante onboarding de nuevos colaboradores, capacitación continua y soporte a la planificación de sprints.",
+      "trabajoRealizado": [
+        "Onboarding de Guillermo Caudana: incorporación y acompañamiento del nuevo colaborador al equipo (40h).",
+        "Capacitación y knowledge transfer, incluida dentro de MASTER-2780 (habilitación de uso y adopción a usuarios iniciales).",
+        "Contribución a automatizaciones dentro de MASTER-2473 (ver Frentes de Trabajo → Arquitectura).",
+        "Kit de Herramientas de IA para Tareas Funcionales (JIR-4081): investigación y prototipado, en curso.",
+        "Planificación recurrente de actividades del siguiente sprint (2h)."
+      ],
+      "resultados": [
+        "14 personas coacheadas/capacitadas durante el trimestre.",
+        "1 nuevo colaborador incorporado al equipo, con 40h de onboarding dedicadas."
+      ],
+      "indicadores": [
+        {
+          "label": "Personas coacheadas/capacitadas",
+          "value": "14"
+        },
+        {
+          "label": "Horas dedicadas",
+          "value": "42h"
+        }
+      ],
+      "entregablesIds": []
+    }
+  ],
+  "entregables": {
+    "mapa-proceso": {
+      "nombre": "Mapa del Proceso de Gestión de la Demanda SMG 2026",
+      "descripcion": "Artefacto visual con etapas, responsables, entregables y puntos de intervención de IA.",
+      "tipo": "Diagrama",
+      "link": "https://spreo.io/BO5H1F69JKLI"
+    },
+    "onboarding-gdd-1": {
+      "nombre": "Onboarding del Proceso de Gestión de la Demanda — Parte 1",
+      "descripcion": "Video de actualización del proceso GDD (febrero 2026).",
+      "tipo": "Video",
+      "link": "https://swissmedicalgroup.sharepoint.com/:v:/s/Gestiondelademanda/IQA3r_66oztyR5YHrVsJ1iRdAZDcTIHDIGwDRuIcc4Wq8hs?e=GLop4g"
+    },
+    "onboarding-gdd-2": {
+      "nombre": "Onboarding del Proceso de Gestión de la Demanda — Parte 2",
+      "descripcion": "Video de actualización del proceso GDD (febrero 2026).",
+      "tipo": "Video",
+      "link": "https://swissmedicalgroup.sharepoint.com/:v:/s/Gestiondelademanda/IQC_nsNYo_2FRIkxzl_3ZpKuAdPSBVAMTb9FT4vw0RPRiLo?e=JZoF2d"
+    },
+    "template-gate": {
+      "nombre": "Template de Gate de Arquitectura",
+      "descripcion": "Generador de flujos para Gates de Arquitectura en Jira.",
+      "tipo": "Template",
+      "link": "https://swiss-medical.atlassian.net/jira/settings/automation#/rule/0199e8f2-52c9-7c37-9951-1a5150018f56"
+    },
+    "asistente-relevamiento": {
+      "nombre": "Asistente Conversacional para Relevamiento de Ideas",
+      "descripcion": "Guía la estructuración de ideas de usuarios previo a formularlas como iniciativa.",
+      "tipo": "Agente IA",
+      "link": "https://ideaflow.asdru.space/"
+    },
+    "asistente-gates": {
+      "nombre": "Asistente de Onboarding y Desarrollo de GATES de Arquitectura",
+      "descripcion": "GATE Evaluator, GATE Builder y GATE Auditor para uso colaborativo.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft/chat/?titleId=T_e622055b-04fa-349b-7d07-79d59b4f1067&source=embedded-builder"
+    },
+    "asistente-compliance": {
+      "nombre": "Asistente para Validar Compliance de una Iniciativa",
+      "descripcion": "Evalúa madurez estructural, financiera y estratégica para transiciones entre fases.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft:443/chat/?titleId=T_41afa8eb-2367-cb97-de4d-5551da1fdf15&source=embedded-builder"
+    },
+    "asistente-minutas": {
+      "nombre": "Asistente para Elaboración de Minutas",
+      "descripcion": "Confecciona minutas a partir de texto, audio o video.",
+      "tipo": "Agente IA",
+      "link": "https://m365.cloud.microsoft:443/chat/?titleId=T_d5d70436-0c79-1900-ef03-eaff3877171f&source=embedded-builder"
+    }
+  },
+  "frentes": [
+    {
+      "id": "agilidad",
+      "nombre": "Agilidad",
+      "descripcion": "Frente transversal que concentra las 6 iniciativas propias del período: servicios a Seguros y SGI, toolkit de IA, rediseño del GDD, consultoría a demanda y trabajo transversal.",
+      "iniciativasPropias": [
+        "seguros-q1",
+        "sgi-q1",
+        "ia-toolkit-q1",
+        "gdd-q1",
+        "consultoria-demanda-q1",
+        "trabajo-transversal-q1"
+      ]
+    },
+    {
+      "id": "seguros",
+      "nombre": "Seguros",
+      "descripcion": "Acompañamiento ágil mensual y consultoría especializada a la Gerencia de Seguros, con consolidación de madurez ágil nivel 3.",
+      "iniciativasPropias": [
+        "seguros-q1"
+      ]
+    },
+    {
+      "id": "sgi",
+      "nombre": "SGI",
+      "descripcion": "Acompañamiento ágil mensual y consultoría especializada a la Gerencia de SGI, con consolidación de madurez ágil nivel 3.",
+      "iniciativasPropias": [
+        "sgi-q1"
+      ]
+    },
+    {
+      "id": "sistemas",
+      "nombre": "Dirección de Sistemas y Tecnología",
+      "descripcion": "Foco del rediseño del proceso de Gestión de la Demanda durante Q1. Concentró el 100% de las horas de recobro de servicios internos del trimestre.",
+      "iniciativasPropias": [
+        "gdd-q1"
+      ]
+    },
+    {
+      "id": "arquitectura",
+      "nombre": "Arquitectura",
+      "descripcion": "Contribución puntual de servicio al Frente de Arquitectura — no es una iniciativa propia del frente de Agilidad.",
+      "iniciativasPropias": [],
+      "equipos": [
+        {
+          "pm": "Agustín Lacorazza (Arquitectura DST)",
+          "ejemplos": "MASTER-2473 — Adopción GATE ARQ: automatización de creación de épicas/gates, reportes Tempo → Másters, personalización de vistas (~16h)"
+        }
+      ]
+    },
+    {
+      "id": "cyg",
+      "nombre": "Control y Gestión (CyG)",
+      "descripcion": "Acompañamiento metodológico a demanda, sin iniciativa Jira propia asociada.",
+      "iniciativasPropias": [],
+      "equipos": [
+        {
+          "pm": "PM: no aplica · PO: Gustavo Ferreyra",
+          "ejemplos": "Consultoría Personalizada a Demanda CyG (~11h)"
+        }
+      ]
+    },
+    {
+      "id": "otros",
+      "nombre": "Otros (Cross)",
+      "descripcion": "Acompañamiento metodológico a demanda a clientes internos cruzados, sin iniciativa Jira propia asociada.",
+      "iniciativasPropias": [],
+      "equipos": [
+        {
+          "pm": "PM: no aplica · PO: Gustavo Ferreyra",
+          "ejemplos": "Consultoría Personalizada a Demanda Otros/Cross (~17h)"
+        }
+      ]
+    }
+  ],
+  "indicadoresConsolidados": [
+    {
+      "label": "Iniciativas propias dirigidas y concretadas",
+      "value": "4"
+    },
+    {
+      "label": "Iniciativas no propias atendidas (servicio)",
+      "value": "1",
+      "detalle": "MASTER-2473 — Arquitectura"
+    },
+    {
+      "label": "Inversión total gestionada",
+      "value": "USD 35.652"
+    },
+    {
+      "label": "Horas insumidas en iniciativas propias",
+      "value": "422h"
+    },
+    {
+      "label": "Horas registradas en Tempo (todas las actividades)",
+      "value": "464h"
+    },
+    {
+      "label": "Frentes de trabajo atendidos",
+      "value": "7",
+      "detalle": "Agilidad, Seguros, SGI, Sistemas, Arquitectura, CyG, Otros"
+    },
+    {
+      "label": "Documentos estructurales producidos",
+      "value": "1",
+      "detalle": "Mapa del Proceso GDD (la Fuente de la Verdad se completó en Q2)"
+    },
+    {
+      "label": "Personas coacheadas/capacitadas",
+      "value": "14"
+    },
+    {
+      "label": "Personas impactadas (alcance de mejoras)",
+      "value": "202+",
+      "detalle": "Seguros 121 + SGI 81, con solapamiento parcial de 102 (MASTER-2780) y 112 (MASTER-2785) que cruzan múltiples áreas"
+    },
+    {
+      "label": "Ahorro anual acumulado proyectado",
+      "value": "USD 1.422.348",
+      "detalle": "Suma de las 4 iniciativas propias con MASTER asociado"
+    }
+  ],
+  "tablaConsolidadoIniciativas": [
+    {
+      "nombre": "Servicios Agilidad Seguros",
+      "codigo": "MASTER-2294",
+      "horasEst": 240,
+      "horasIns": 71,
+      "usd": 9360,
+      "roi": "104%"
+    },
+    {
+      "nombre": "Servicios Agilidad SGI",
+      "codigo": "MASTER-2328",
+      "horasEst": 240,
+      "horasIns": 61,
+      "usd": 9360,
+      "roi": "104%"
+    },
+    {
+      "nombre": "Consultoría en Metodologías e IA (Assessment y MVP)",
+      "codigo": "MASTER-2780",
+      "horasEst": 176,
+      "horasIns": 138,
+      "usd": 8466,
+      "roi": "7.080%"
+    },
+    {
+      "nombre": "Assessment y Refactoring GDD",
+      "codigo": "MASTER-2785",
+      "horasEst": 176,
+      "horasIns": 152,
+      "usd": 8466,
+      "roi": "8.817%"
+    }
+  ],
+  "totales": {
+    "horasEst": 832,
+    "horasIns": 422,
+    "usd": 35652
+  },
+  "recobro": {
+    "porFrente": [
+      {
+        "frente": "Dirección de Sistemas (Cross Org.)",
+        "horas": 464,
+        "pct": 100
+      }
+    ],
+    "porMes": [
+      {
+        "mes": "Ene",
+        "sistemas": 160,
+        "seguros": 0,
+        "pcd": 0
+      },
+      {
+        "mes": "Feb",
+        "sistemas": 144,
+        "seguros": 0,
+        "pcd": 0
+      },
+      {
+        "mes": "Mar",
+        "sistemas": 160,
+        "seguros": 0,
+        "pcd": 0
+      }
+    ]
+  },
+  "proximosPasos": [],
+  "jiraBaseUrl": "https://swiss-medical.atlassian.net/browse/"
+}
