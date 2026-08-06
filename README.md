@@ -11,13 +11,16 @@ ante Swiss Medical Group, período a período (Quarter, Half o Año).
 
 ```
 portal-gestion-smg/
-├── index.html              # Shell de la app + manifiesto de períodos (ver sección 4)
+├── index.html              # Shell de la app + manifiesto de períodos (ver sección 3)
 ├── styles.css               # Estilos — no cambia con cada período
 ├── app.js                   # Router + lógica de render — no cambia con cada período
 ├── REPORT_TEMPLATE.md        # Plantilla del informe de entrada (ver sección 2)
 ├── data/
 │   └── H1-2026.json         # Datos del período H1 2026
 │   └── <periodo>.json       # Un archivo por cada período agregado a futuro
+├── informes/
+│   ├── _TEMPLATE.html       # Plantilla de referencia para nuevos informes (ver sección 4)
+│   └── <id>.html            # Un archivo por cada informe agregado
 └── input_reports/           # Informes de origen ya completados (ignorado por git, ver .gitignore)
 ```
 
@@ -145,7 +148,83 @@ dominio ni del proyecto — eso quedó resuelto una sola vez.
 
 ---
 
-## 4. Diseño (referencia rápida)
+## 4. Informes extendidos (HTML autocontenido)
+
+Además de las 5 vistas principales, cada período puede tener **Informes**: páginas
+interactivas independientes (assessments, análisis puntuales, entregas especiales) que
+no siguen la estructura estándar del portal. Aparecen en el sidebar bajo "Informes",
+listados como tarjetas (igual que Iniciativas), y al hacer clic se abren en su propia
+vista dentro del portal.
+
+### Cómo funciona técnicamente
+
+- Cada informe es un **archivo HTML autocontenido** (todo su CSS y JS embebido en el
+  mismo archivo), guardado en la carpeta `informes/` del repo.
+- El portal lo muestra dentro de un `<iframe>` — por eso puede ser completamente
+  heterogéneo entre sí (un informe puede tener gráficos, tablas, lo que sea) sin que su
+  estilo choque con el del portal ni viceversa.
+- Los informes son **por período**: cada `data/<periodo>.json` tiene su propia lista de
+  informes en el campo `informes`. Un período sin ese campo simplemente no muestra
+  ninguno (no rompe nada — así quedaron H1-2026 y Q1-2026 antes de esta funcionalidad).
+
+### Estructura del campo `informes` en el JSON del período
+
+```json
+"informes": [
+  {
+    "id": "assessment-seguros-2026",
+    "titulo": "Assessment de Agilidad — Gerencia de Seguros",
+    "categoria": "Assessment",
+    "descripcion": "Adopción del framework y visibilidad operativa (enero–julio 2026).",
+    "fecha": "2026-08-01",
+    "archivo": "informes/assessment-seguros-2026.html"
+  }
+]
+```
+
+| Campo | Obligatorio | Descripción |
+|---|---|---|
+| `id` | Sí | Único dentro del período. Se usa en la URL (`#/período/informe/<id>`). |
+| `titulo` | Sí | Se muestra en la tarjeta y en el encabezado del detalle. |
+| `archivo` | Sí | Ruta relativa al HTML dentro de `informes/`. |
+| `categoria` | No | Etiqueta corta mostrada en la tarjeta (ej. "Assessment", "Auditoría"). |
+| `descripcion` | No | Bajada breve en la tarjeta y en el detalle. |
+| `fecha` | No | Se muestra formateada en la tarjeta (`AAAA-MM-DD`). |
+
+### Cómo generar el HTML de un informe nuevo
+
+1. Copiá `informes/_TEMPLATE.html` como punto de partida — ya tiene la paleta, tipografía
+   y estructura de secciones del portal aplicadas, con datos de ejemplo marcados
+   `[Reemplazar]`.
+2. Si le vas a pedir a otro asistente/IA que genere el contenido, pasale ese archivo
+   completo como referencia junto con estas reglas:
+   - Un solo archivo HTML, con todo el CSS y JS embebido (sin dependencias de otros
+     archivos del repo).
+   - Los datos variables van en un objeto `DATA` al principio del `<script>`, separados
+     de las funciones que arman el HTML — no hardcodear valores en el markup.
+   - Debe verse bien tanto dentro de un iframe (~900–1100px de ancho) como abierto a
+     pantalla completa.
+   - No usar el color como único indicador de estado — siempre acompañarlo de texto o
+     ícono (los `.status-pill` de la plantilla ya resuelven esto).
+   - Reusar los tokens de color de `:root` en la plantilla — son los mismos que
+     `styles.css`, así todos los informes se ven consistentes entre sí.
+3. Guardá el archivo final en `informes/<id>.html`.
+4. Agregá la entrada correspondiente al array `informes` del `data/<periodo>.json`.
+5. `git add`, `commit`, `push` — como cualquier otro cambio.
+
+### Qué NO hace esta funcionalidad (por ahora)
+
+- Los informes **no se incluyen** en la descarga de PDF (Informe Ejecutivo/Detallado) —
+  al ser HTML heterogéneo con posible JS propio, no se puede garantizar que impriman
+  bien desde el flujo de impresión del portal. Si necesitás un PDF de un informe
+  puntual, abrilo con "Abrir en pestaña nueva" y usá Ctrl+P / Guardar como PDF
+  directamente sobre esa página.
+- No hay una pantalla de "subir archivo" dentro del portal — se sigue el mismo flujo
+  sin backend que el resto del portal (archivo + entrada en el JSON + `git push`).
+
+---
+
+## 5. Diseño (referencia rápida)
 
 - Paleta de marca (rojo institucional, sidebar): `#A82C30` — pastilla activa en negro `#1C1C1E`
 - Colores de estado (extraídos de GIGA): Finalizada = verde `#197B53` / `#E2F5EE`,

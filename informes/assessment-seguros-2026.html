@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assessment de Agilidad — Gerencia de Seguros — Swiss Medical Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Assessment de Agilidad — Gerencia de Seguros
+   Período: Enero – Julio 2026
+   Fuente: Relevamiento JPD/Jira, Tempo, Assessment de madurez e
+   Informes al Usuario, consolidado por SMG Seguros.
+   ============================================================ */
+
+:root {
+  /* Estos son EXACTAMENTE los mismos tokens de color que usa el
+     portal (styles.css). Si copiás este archivo para otro informe,
+     no los cambies — así todos los informes se ven consistentes
+     entre sí y con el portal, aunque cada uno sea un archivo aparte. */
+  --ink: #1A1A1A;
+  --ink-soft: #46464A;
+  --bg: #F4F5F7;
+  --surface: #FFFFFF;
+  --surface-sunken: #EFF0F2;
+  --border: #E4E5E8;
+  --border-strong: #D2D3D7;
+
+  --accent: #1C1C1E;
+  --coral: #A82C30;
+  --coral-soft: #F7E3E3;
+  --green: #197B53;
+  --green-soft: #E2F5EE;
+  --blue: #246178;
+  --blue-soft: #E3F4F8;
+  --gray-status: #617086;
+  --gray-status-soft: #DFE8F1;
+  --yellow: #B7791F;
+  --yellow-soft: #FDF3DC;
+  --slate: #6B6B70;
+  --slate-soft: #EDEDEF;
+
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(26,26,26,0.05), 0 1px 1px rgba(26,26,26,0.04);
+  --shadow-md: 0 4px 12px rgba(26,26,26,0.07), 0 1px 3px rgba(26,26,26,0.05);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 { margin: 0; font-weight: 650; letter-spacing: -0.01em; }
+p { margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+
+/* Header */
+.report-header { margin-bottom: 24px; }
+.report-header .eyebrow {
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--coral); margin-bottom: 6px;
+}
+.report-header h1 { font-size: 23px; margin-bottom: 6px; }
+.report-header .meta-row { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--slate); margin-top: 8px; }
+.report-header .meta-row b { color: var(--ink); font-weight: 600; }
+
+/* Sections */
+.section { margin-bottom: 30px; }
+.section-title {
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate);
+  font-weight: 700; margin-bottom: 14px;
+}
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 18px 20px; box-shadow: var(--shadow-sm);
+}
+
+/* KPI grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 800px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+.kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+.kpi-card .l { font-size: 11.5px; color: var(--slate); margin-bottom: 6px; }
+.kpi-card .v { font-family: var(--font-mono); font-size: 19px; font-weight: 600; }
+
+/* Status pill (usar SIEMPRE con texto, no solo color) */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px;
+}
+.status-pill.ok { background: var(--green-soft); color: var(--green); }
+.status-pill.warn { background: var(--yellow-soft); color: var(--yellow); }
+.status-pill.risk { background: var(--coral-soft); color: var(--coral); }
+.status-pill.info { background: var(--blue-soft); color: var(--blue); }
+.status-pill.neutral { background: var(--gray-status-soft); color: var(--gray-status); }
+.status-pill svg { width: 11px; height: 11px; }
+
+/* Flujo de iniciativas — Cumulative Flow Diagram: barras APILADAS por mes.
+   Es correcto apilar acá porque cada mes es un reparto del total de la
+   cartera por estado (las categorías son mutuamente excluyentes y suman
+   el 100% de las iniciativas de ese mes). NO usar este patrón para series
+   que no sean partes de un mismo total. */
+.cfd-bars { display: flex; align-items: flex-end; gap: 14px; height: 220px; margin: 16px 0 6px; }
+.cfd-col { flex: 1; display: flex; flex-direction: column-reverse; align-items: stretch; height: 100%; position: relative; }
+.cfd-seg { width: 100%; }
+.cfd-col .month-label { position: absolute; bottom: -20px; left: 0; right: 0; text-align: center; font-size: 11px; color: var(--slate); }
+.chart-legend { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-soft); }
+.chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chart-legend .dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+
+/* Ranking simple — UNA sola serie, una foto puntual (ej. estado al cierre
+   de un mes). NO apilar: cada barra es independiente, se comparan entre sí. */
+.rank-bars { display: flex; align-items: flex-end; gap: 10px; height: 160px; margin: 16px 0 26px; }
+.rank-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+.rank-col .rank-value { font-family: var(--font-mono); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+.rank-col .rank-bar { width: 70%; border-radius: 3px 3px 0 0; }
+.rank-col .rank-label { font-size: 10.5px; color: var(--slate); margin-top: 8px; text-align: center; line-height: 1.3; }
+
+/* Comparación agrupada — DOS series lado a lado por categoría (ej. Marzo
+   vs Julio). NO apilar: no son partes de un total, son dos mediciones a
+   comparar una junto a la otra. */
+.grouped-bars { display: flex; align-items: flex-end; gap: 18px; height: 160px; margin: 16px 0 26px; }
+.grouped-col { flex: 1; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 100%; position: relative; }
+.grouped-col .bar-pair { display: flex; align-items: flex-end; gap: 3px; height: 100%; }
+.grouped-col .bar-pair .gbar { width: 16px; border-radius: 2px 2px 0 0; position: relative; }
+.grouped-col .gbar .gval { position: absolute; top: -16px; left: 0; right: 0; text-align: center; font-size: 10px; font-family: var(--font-mono); color: var(--ink-soft); }
+.grouped-col .cat-label { position: absolute; bottom: -34px; left: -20px; right: -20px; text-align: center; font-size: 10.5px; color: var(--slate); line-height: 1.25; }
+
+/* Ranking horizontal — buena opción cuando hay muchas categorías y los
+   nombres son largos (no entran como eje X vertical). */
+.hrank-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0 4px; }
+.hrank-row { display: grid; grid-template-columns: 150px 1fr 46px; align-items: center; gap: 10px; }
+.hrank-row .hrank-label { font-size: 11.5px; color: var(--ink-soft); text-align: right; }
+.hrank-row .hrank-track { background: var(--surface-sunken); border-radius: 3px; height: 16px; position: relative; }
+.hrank-row .hrank-fill { height: 100%; border-radius: 3px; }
+.hrank-row .hrank-value { font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; }
+
+/* Comparación horizontal con DOS barras por fila — mejor que barras
+   agrupadas verticales cuando hay muchas categorías (16 en este caso). */
+.hcompare-row { display: grid; grid-template-columns: 170px 1fr 1fr 90px; align-items: center; gap: 10px; margin-bottom: 9px; }
+.hcompare-row .hc-label { font-size: 11.5px; color: var(--ink-soft); text-align: right; }
+.hcompare-row .hc-track { background: var(--surface-sunken); border-radius: 3px; height: 14px; position: relative; }
+.hcompare-row .hc-fill { height: 100%; border-radius: 3px; }
+.hcompare-row .hc-delta { font-family: var(--font-mono); font-size: 11px; font-weight: 700; text-align: right; }
+.hcompare-head { display: grid; grid-template-columns: 170px 1fr 1fr 90px; gap: 10px; margin-bottom: 8px; font-size: 10.5px; color: var(--slate); text-transform: uppercase; letter-spacing: 0.03em; }
+
+/* Fuentes de evidencia (metodología) */
+.fuentes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+@media (max-width: 800px) { .fuentes-grid { grid-template-columns: repeat(2, 1fr); } }
+.fuente-card-box { background: var(--surface-sunken); border-radius: var(--radius-md); padding: 12px 14px; }
+.fuente-card-box .ft-title { font-size: 12.5px; font-weight: 700; margin-bottom: 6px; }
+.fuente-card-box .ft-item { font-size: 11.5px; color: var(--ink-soft); line-height: 1.5; }
+.chart-analysis { margin-top: 14px; font-size: 13px; color: var(--ink-soft); }
+.chart-subtitle { font-size: 13px; font-weight: 600; color: var(--ink); margin: 22px 0 4px; }
+.chart-subtitle:first-child { margin-top: 0; }
+
+/* Dimensiones del framework */
+.dims-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 900px) { .dims-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .dims-grid { grid-template-columns: 1fr; } }
+.dim-card h4 { font-size: 13.5px; margin-bottom: 8px; }
+.dim-card .dim-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.dim-card .dim-evidencia { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 6px; }
+.dim-card .dim-fuente { font-size: 11px; color: var(--slate); }
+
+/* Madurez de equipos */
+.madurez-legend { font-size: 12px; color: var(--slate); margin-bottom: 12px; }
+.madurez-table-wrap { overflow-x: auto; }
+table.madurez { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.madurez th, table.madurez td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+table.madurez th { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--slate); background: var(--surface-sunken); }
+table.madurez td.num { font-family: var(--font-mono); text-align: center; }
+.nivel-badge { display: inline-block; padding: 2px 7px; border-radius: 5px; font-size: 11px; font-weight: 600; }
+
+/* Hallazgos */
+.hallazgos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .hallazgos-grid { grid-template-columns: 1fr; } }
+.hallazgo-col h4 { font-size: 13px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.hallazgo-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 8px; font-size: 12.5px; }
+.hallazgo-item .titulo { font-weight: 600; margin-bottom: 4px; }
+.hallazgo-item .evidencia { color: var(--slate); font-size: 11.5px; }
+.hallazgo-item .accion-meta { margin-top: 6px; font-size: 11px; color: var(--blue); font-weight: 600; }
+
+/* Metodología (panel colapsable nativo, sin JS) */
+details.metodologia { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 18px; }
+details.metodologia summary { cursor: pointer; font-weight: 600; font-size: 13.5px; }
+details.metodologia .fuentes { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+details.metodologia .fuente-chip { font-size: 11.5px; background: var(--slate-soft); color: var(--ink-soft); padding: 4px 10px; border-radius: 100px; }
+details.metodologia p { font-size: 12.5px; color: var(--ink-soft); margin-top: 10px; }
+
+/* Botón de descarga — mismo estilo que el botón principal del portal */
+.report-header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.download-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.download-btn:hover { background: var(--surface-sunken); border-color: var(--border-strong); color: var(--ink); }
+.download-btn svg { width: 17px; height: 17px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+  @page { margin: 14mm 12mm; }
+  .card, .kpi-card, .dim-card, .hallazgo-item { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+// ============================================================
+// DATA — todo el contenido variable va acá. [Reemplazar] por
+// datos reales. Nada de esto debería vivir hardcodeado dentro
+// de las funciones de render de más abajo.
+// ============================================================
+const DATA = {
+  "meta": {
+    "titulo": "Assessment de Agilidad — Gerencia de Seguros",
+    "gerencia": "Seguros",
+    "periodo": "Enero – Julio 2026",
+    "estadoGeneral": {
+      "label": "En adopción",
+      "tipo": "info"
+    },
+    "fechaActualizacion": "2026-07-31",
+    "sintesis": "La evidencia muestra adopción en curso, con buena trazabilidad formal en Jira/Tempo y oportunidades concretas de consolidación: la cartera crece de forma sostenida, la madurez ágil avanza hacia HA en las dimensiones operativas clave, y el trabajo fuera de iniciativas se redujo del 39,4% al 1,4% entre enero y julio.",
+    "fuentes": [
+      "Jira Product Discovery",
+      "Jira Software",
+      "Tempo",
+      "Informes al Usuario"
+    ]
+  },
+  "kpis": [
+    {
+      "label": "Iniciativas consolidadas",
+      "value": "200"
+    },
+    {
+      "label": "Activas",
+      "value": "141"
+    },
+    {
+      "label": "Archivadas",
+      "value": "59"
+    },
+    {
+      "label": "Horas registradas en Tempo",
+      "value": "94,8k h"
+    },
+    {
+      "label": "% de horas imputadas a iniciativas",
+      "value": "78,2%"
+    },
+    {
+      "label": "Horas en Bugs/Incidentes",
+      "value": "1.830h"
+    },
+    {
+      "label": "Madurez general (julio)",
+      "value": "3,2/5 · HA"
+    },
+    {
+      "label": "Reportes al usuario (ene-jun)",
+      "value": "14"
+    }
+  ],
+  "flujo": {
+    "capacidades": [
+      {
+        "label": "Backlog (prom. mensual)",
+        "value": "19,3"
+      },
+      {
+        "label": "Preselección (prom. mensual)",
+        "value": "0,7"
+      },
+      {
+        "label": "Discovery (prom. mensual)",
+        "value": "5,1"
+      },
+      {
+        "label": "Delivery (prom. mensual)",
+        "value": "18,7"
+      },
+      {
+        "label": "Entrega (prom. mensual)",
+        "value": "26,6"
+      }
+    ],
+    "estadosColores": {
+      "finalizada": "#2B547E",
+      "delivery": "#3F7FB5",
+      "discovery": "#6AA4CF",
+      "backlog": "#A8D0E3",
+      "preseleccion": "#F2C744",
+      "aprobacion": "#F0B35A",
+      "onhold": "#B3A08F",
+      "cancelada": "#C9573E"
+    },
+    "estadosLabels": {
+      "finalizada": "Finalizada",
+      "delivery": "Delivery",
+      "discovery": "Discovery",
+      "backlog": "Backlog",
+      "preseleccion": "Preselección",
+      "aprobacion": "Aprobación",
+      "onhold": "On Hold",
+      "cancelada": "Cancelada"
+    },
+    "meses": [
+      {
+        "mes": "Ene",
+        "finalizada": 25,
+        "delivery": 31,
+        "discovery": 8,
+        "backlog": 20,
+        "preseleccion": 0,
+        "aprobacion": 0,
+        "onhold": 4,
+        "cancelada": 0
+      },
+      {
+        "mes": "Feb",
+        "finalizada": 61,
+        "delivery": 22,
+        "discovery": 2,
+        "backlog": 27,
+        "preseleccion": 0,
+        "aprobacion": 0,
+        "onhold": 3,
+        "cancelada": 0
+      },
+      {
+        "mes": "Mar",
+        "finalizada": 108,
+        "delivery": 1,
+        "discovery": 0,
+        "backlog": 19,
+        "preseleccion": 1,
+        "aprobacion": 0,
+        "onhold": 2,
+        "cancelada": 0
+      },
+      {
+        "mes": "Abr",
+        "finalizada": 101,
+        "delivery": 19,
+        "discovery": 7,
+        "backlog": 3,
+        "preseleccion": 0,
+        "aprobacion": 2,
+        "onhold": 7,
+        "cancelada": 0
+      },
+      {
+        "mes": "May",
+        "finalizada": 99,
+        "delivery": 26,
+        "discovery": 3,
+        "backlog": 11,
+        "preseleccion": 1,
+        "aprobacion": 5,
+        "onhold": 6,
+        "cancelada": 0
+      },
+      {
+        "mes": "Jun",
+        "finalizada": 133,
+        "delivery": 9,
+        "discovery": 5,
+        "backlog": 43,
+        "preseleccion": 1,
+        "aprobacion": 1,
+        "onhold": 5,
+        "cancelada": 0
+      },
+      {
+        "mes": "Jul",
+        "finalizada": 138,
+        "delivery": 23,
+        "discovery": 11,
+        "backlog": 12,
+        "preseleccion": 2,
+        "aprobacion": 5,
+        "onhold": 5,
+        "cancelada": 4
+      }
+    ],
+    "analisis": "El backlog no muestra crecimiento sostenido: tuvo su pico en junio (43) y bajó a 12 en julio, lo que materializa los compromisos asumidos en la PI Planning. Preselección se mantiene marginal durante todo el período. Delivery se estabiliza en torno a 19 iniciativas WIP, y la entrega recupera ritmo en julio con 30 cierres."
+  },
+  "fotoCierre": {
+    "mes": "Julio",
+    "items": [
+      {
+        "label": "Finalizada",
+        "value": 138,
+        "color": "#2B547E"
+      },
+      {
+        "label": "Delivery",
+        "value": 23,
+        "color": "#3F7FB5"
+      },
+      {
+        "label": "Discovery",
+        "value": 11,
+        "color": "#6AA4CF"
+      },
+      {
+        "label": "Backlog",
+        "value": 12,
+        "color": "#A8D0E3"
+      },
+      {
+        "label": "Preselección",
+        "value": 2,
+        "color": "#F2C744"
+      },
+      {
+        "label": "Aprobación",
+        "value": 5,
+        "color": "#F0B35A"
+      },
+      {
+        "label": "On Hold",
+        "value": 5,
+        "color": "#B3A08F"
+      },
+      {
+        "label": "Cancelada",
+        "value": 4,
+        "color": "#C9573E"
+      }
+    ],
+    "resumen": [
+      {
+        "label": "finalizadas sobre el total",
+        "value": "69,0%"
+      },
+      {
+        "label": "aún abiertas o en flujo",
+        "value": "31,0%"
+      },
+      {
+        "label": "On Hold a revisar",
+        "value": "5"
+      }
+    ]
+  },
+  "horas": {
+    "analisis": "Tempo muestra una mejora marcada en la identificación del esfuerzo: el trabajo fuera de iniciativas bajó de 39,4% en enero a 1,4% en julio. En el acumulado enero-julio, el 78,2% de las horas se imputó a iniciativas, 19,9% quedó como \"no iniciativa\" acumulado, y 1.830h se registraron en Bugs/Incidentes. Valores mensuales estimados a partir del gráfico de origen.",
+    "colores": {
+      "iniciativas": "#1B5E20",
+      "nolniciativa": "#F9A825",
+      "bugs": "#C62828"
+    },
+    "meses": [
+      {
+        "mes": "Ene",
+        "iniciativas": 6950,
+        "noiniciativa": 4460,
+        "bugs": 150
+      },
+      {
+        "mes": "Feb",
+        "iniciativas": 7650,
+        "noiniciativa": 2850,
+        "bugs": 350
+      },
+      {
+        "mes": "Mar",
+        "iniciativas": 9500,
+        "noiniciativa": 3350,
+        "bugs": 200
+      },
+      {
+        "mes": "Abr",
+        "iniciativas": 7450,
+        "noiniciativa": 5900,
+        "bugs": 450
+      },
+      {
+        "mes": "May",
+        "iniciativas": 12250,
+        "noiniciativa": 1650,
+        "bugs": 350
+      },
+      {
+        "mes": "Jun",
+        "iniciativas": 15550,
+        "noiniciativa": 250,
+        "bugs": 400
+      },
+      {
+        "mes": "Jul",
+        "iniciativas": 14750,
+        "noiniciativa": 100,
+        "bugs": 250
+      }
+    ]
+  },
+  "madurezComparacion": [
+    {
+      "label": "Estimación y priorización",
+      "a": 1.93,
+      "b": 3.07
+    },
+    {
+      "label": "Entrega de valor",
+      "a": 2.33,
+      "b": 3.27
+    },
+    {
+      "label": "Eventos ágiles",
+      "a": 2.27,
+      "b": 3.0
+    },
+    {
+      "label": "Impedimentos",
+      "a": 2.87,
+      "b": 3.27
+    },
+    {
+      "label": "Métricas ágiles",
+      "a": 1.93,
+      "b": 2.93
+    },
+    {
+      "label": "Salud del backlog",
+      "a": 1.93,
+      "b": 2.6
+    },
+    {
+      "label": "Acuerdos",
+      "a": 2.8,
+      "b": 3.47
+    },
+    {
+      "label": "Colaboración",
+      "a": 3.2,
+      "b": 3.6
+    },
+    {
+      "label": "Grado de pertenencia",
+      "a": 2.6,
+      "b": 3.33
+    },
+    {
+      "label": "Nivel de confianza",
+      "a": 3.33,
+      "b": 3.87
+    },
+    {
+      "label": "Orientación a resultados",
+      "a": 3.53,
+      "b": 3.8
+    },
+    {
+      "label": "Arquitectura",
+      "a": 2.5,
+      "b": 3.07
+    },
+    {
+      "label": "Testing",
+      "a": 2.29,
+      "b": 2.93
+    },
+    {
+      "label": "Revisión de código",
+      "a": 2.21,
+      "b": 2.93
+    },
+    {
+      "label": "Chequeo de interfaces",
+      "a": 2.0,
+      "b": 2.79
+    },
+    {
+      "label": "Ejecución del rol",
+      "a": 2.73,
+      "b": 3.13
+    }
+  ],
+  "madurezRanking": [
+    {
+      "label": "Salud del backlog",
+      "value": 2.6
+    },
+    {
+      "label": "Chequeo de interfaces",
+      "value": 2.79
+    },
+    {
+      "label": "Métricas ágiles",
+      "value": 2.93
+    },
+    {
+      "label": "Testing",
+      "value": 2.93
+    },
+    {
+      "label": "Revisión de código",
+      "value": 2.93
+    },
+    {
+      "label": "Eventos ágiles",
+      "value": 3.0
+    },
+    {
+      "label": "Estimación y priorización",
+      "value": 3.07
+    },
+    {
+      "label": "Arquitectura",
+      "value": 3.07
+    },
+    {
+      "label": "Ejecución del rol",
+      "value": 3.13
+    },
+    {
+      "label": "Entrega de valor",
+      "value": 3.27
+    },
+    {
+      "label": "Impedimentos",
+      "value": 3.27
+    },
+    {
+      "label": "Grado de pertenencia",
+      "value": 3.33
+    },
+    {
+      "label": "Acuerdos",
+      "value": 3.47
+    },
+    {
+      "label": "Colaboración",
+      "value": 3.6
+    },
+    {
+      "label": "Orientación a resultados",
+      "value": 3.8
+    },
+    {
+      "label": "Nivel de confianza",
+      "value": 3.87
+    }
+  ],
+  "madurezNiveles": {
+    "1": "SHU",
+    "2": "Transición a HA",
+    "3": "HA",
+    "4": "Transición a RI",
+    "5": "RI"
+  },
+  "madurezPracticas": [
+    "Estimación y priorización",
+    "Entrega de valor",
+    "Eventos ágiles",
+    "Impedimentos",
+    "Métricas ágiles",
+    "Salud del backlog",
+    "Acuerdos",
+    "Colaboración",
+    "Grado de pertenencia",
+    "Nivel de confianza",
+    "Orientación a resultados",
+    "Arquitectura",
+    "Testing",
+    "Revisión de código",
+    "Chequeo de interfaces",
+    "Ejecución del rol"
+  ],
+  "madurezEquipos": [
+    {
+      "equipo": "CRISTIAN SCHIFFINO",
+      "valores": [
+        3.0,
+        3.0,
+        1.0,
+        2.0,
+        2.0,
+        1.0,
+        3.0,
+        3.0,
+        3.0,
+        2.0,
+        3.0,
+        3.0,
+        2.0,
+        3.0,
+        3.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "DAMIÁN CARMIE",
+      "valores": [
+        2.0,
+        3.0,
+        4.0,
+        4.0,
+        2.0,
+        4.0,
+        3.0,
+        5.0,
+        4.0,
+        4.0,
+        5.0,
+        2.0,
+        3.0,
+        4.0,
+        3.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "DIONEL MARMORI",
+      "valores": [
+        4.0,
+        4.0,
+        4.0,
+        3.0,
+        3.0,
+        2.0,
+        5.0,
+        4.0,
+        3.0,
+        5.0,
+        4.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "equipo": "GABI ALFONSO OVSC",
+      "valores": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        4.0,
+        3.0,
+        3.0,
+        2.0,
+        2.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "GABRIELA",
+      "valores": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        2.0,
+        2.0,
+        2.0,
+        2.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "LEO BANEGAS",
+      "valores": [
+        3.0,
+        3.0,
+        2.0,
+        3.0,
+        2.0,
+        2.0,
+        5.0,
+        5.0,
+        3.0,
+        4.0,
+        4.0,
+        4.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "MAIRA MASMUD",
+      "valores": [
+        3.0,
+        2.0,
+        2.0,
+        4.0,
+        5.0,
+        2.0,
+        3.0,
+        2.0,
+        4.0,
+        5.0,
+        4.0,
+        4.0,
+        4.0,
+        3.0,
+        2.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "MARCE CONDE",
+      "valores": [
+        3.0,
+        4.0,
+        3.0,
+        4.0,
+        4.0,
+        3.0,
+        5.0,
+        4.0,
+        4.0,
+        5.0,
+        4.0,
+        null,
+        null,
+        null,
+        null,
+        3.0
+      ]
+    },
+    {
+      "equipo": "LUIS LIÑARES",
+      "valores": [
+        3.0,
+        3.0,
+        4.0,
+        3.0,
+        2.0,
+        3.0,
+        2.0,
+        3.0,
+        3.0,
+        4.0,
+        5.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "MAXI CLERICI",
+      "valores": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "NICOLAS SPELLA",
+      "valores": [
+        3.0,
+        3.0,
+        2.0,
+        3.0,
+        3.0,
+        2.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "MARCOS MACIEL",
+      "valores": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        4.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "PABLO ZUCCOLI",
+      "valores": [
+        4.0,
+        5.0,
+        5.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        4.0,
+        3.0,
+        5.0,
+        4.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "equipo": "PEDRO IRALA",
+      "valores": [
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        2.0,
+        2.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ]
+    },
+    {
+      "equipo": "WALTER RODRIGUEZ",
+      "valores": [
+        3.0,
+        4.0,
+        3.0,
+        4.0,
+        3.0,
+        2.0,
+        3.0,
+        4.0,
+        4.0,
+        5.0,
+        4.0,
+        4.0,
+        3.0,
+        3.0,
+        3.0,
+        3.0
+      ]
+    }
+  ],
+  "dimensiones": [
+    {
+      "nombre": "Gestión de demanda y priorización",
+      "estado": "En adopción",
+      "tipo": "info",
+      "confianza": "Alta",
+      "evidencia": "200 iniciativas consolidadas, con Compliance superior al 85%.",
+      "fuente": "Jira Product Discovery"
+    },
+    {
+      "nombre": "Discovery / Inception",
+      "estado": "En adopción",
+      "tipo": "info",
+      "confianza": "Media-Alta",
+      "evidencia": "11 iniciativas en Discovery al cierre de julio, con participación cross y mejoras en estandarización.",
+      "fuente": "Jira Product Discovery"
+    },
+    {
+      "nombre": "Planificación",
+      "estado": "En adopción",
+      "tipo": "info",
+      "confianza": "Alta",
+      "evidencia": "66,1% de ejecución presupuestaria, con eventos concretos. Delegaciones aún mejorables. Es consistente con el 69% de entrega.",
+      "fuente": "Jira Software"
+    },
+    {
+      "nombre": "Ejecución de los equipos",
+      "estado": "En adopción",
+      "tipo": "info",
+      "confianza": "Alta",
+      "evidencia": "94.813 h registradas en Tempo durante el período.",
+      "fuente": "Tempo"
+    },
+    {
+      "nombre": "Entregas y resultados",
+      "estado": "En adopción",
+      "tipo": "info",
+      "confianza": "Alta",
+      "evidencia": "138 iniciativas finalizadas al cierre de julio.",
+      "fuente": "Jira Software"
+    },
+    {
+      "nombre": "Mejora continua",
+      "estado": "En adopción",
+      "tipo": "info",
+      "confianza": "Media",
+      "evidencia": "Madurez general de 3,2/5 (HA) al cierre de julio.",
+      "fuente": "Assessment de madurez"
+    }
+  ],
+  "hallazgos": {
+    "fortalezas": [
+      {
+        "titulo": "Cartera trazable y consolidada",
+        "evidencia": "200 iniciativas con seguimiento mensual formal en JPD/Jira."
+      },
+      {
+        "titulo": "Madurez general en HA",
+        "evidencia": "3,2/5 al cierre de julio, con avances en estimación, entrega de valor y eventos ágiles."
+      },
+      {
+        "titulo": "Reducción fuerte del trabajo \"No iniciativa\"",
+        "evidencia": "Bajó de 39,4% en enero a 1,4% en julio del total de horas imputadas."
+      }
+    ],
+    "riesgos": [
+      {
+        "titulo": "Trabajo fuera de iniciativas aún relevante en acumulado",
+        "evidencia": "19,9% acumulado enero-julio, pese a la fuerte mejora mensual reciente."
+      },
+      {
+        "titulo": "Salud del backlog por debajo del promedio",
+        "evidencia": "2,6/5 — la dimensión más baja del ranking de madurez de julio."
+      },
+      {
+        "titulo": "Criterios de cierre y estados necesitan depuración",
+        "evidencia": "El pico de Backlog en junio (43) y su caída abrupta en julio (12) sugiere ajustes de proceso más que evolución orgánica."
+      }
+    ],
+    "interpretacion": "La gerencia tiene datos suficientes para gestionar por evidencia. El siguiente paso no es medir más, sino cerrar brechas de trazabilidad y calidad operativa."
+  },
+  "acciones": {
+    "items": [
+      {
+        "titulo": "Refinar salud del backlog",
+        "descripcion": "Definition of Ready, criterios de slicing, prioridad y backlog listo para ejecución.",
+        "plazo": "30–60 días"
+      },
+      {
+        "titulo": "Revisión de estados y cierres",
+        "descripcion": "On Hold, Backlog, canceladas y finalizadas con criterio común.",
+        "plazo": "Mensual"
+      },
+      {
+        "titulo": "Mantener el foco y prioridades",
+        "descripcion": "Esfuerzo enfocado en iniciativas, con preferencia en estratégicas y tácticas, y gestión explícita del BAU.",
+        "plazo": "Mensual"
+      }
+    ],
+    "resultadoEsperado": "Mayor predictibilidad, mejor lectura de capacidad y previsión en la entrega de valor."
+  },
+  "metodologia": {
+    "resumen": "Los resultados se sustentan con datos duros de Jira/JPD y Tempo, y se califican con criterio del agilista en las dimensiones que lo requieren. La falta de dato no se interpreta como falta de adopción: se explicita como limitación. El informe separa operación, horas y madurez para evitar lecturas mezcladas.",
+    "fuentesDetalle": [
+      {
+        "titulo": "JPD / Jira",
+        "items": [
+          "200 iniciativas",
+          "Estados mensuales",
+          "PM · Nivel · Plan Anual"
+        ]
+      },
+      {
+        "titulo": "Tempo",
+        "items": [
+          "Presupuesto y ejecución",
+          "Histórico mensual",
+          "94.813 h"
+        ]
+      },
+      {
+        "titulo": "Assessment",
+        "items": [
+          "15 equipos",
+          "Marzo vs Julio",
+          "16 dimensiones",
+          "Estado SHU–HA–RI"
+        ]
+      },
+      {
+        "titulo": "Informes al Usuario",
+        "items": [
+          "14 reportes, enero a junio",
+          "Negocios: Patrimonial, VIDA y ART",
+          "Foco en OKRs"
+        ]
+      }
+    ]
+  }
+};
+
+// ============================================================
+// RENDER — funciones que arman el HTML a partir de DATA.
+// No debería hacer falta tocar nada de acá al completar un
+// informe nuevo; alcanza con editar el objeto DATA de arriba.
+// ============================================================
+
+function el(html) {
+  const t = document.createElement("template");
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+}
+
+function statusPillIcon(tipo) {
+  const icons = {
+    ok: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l3.5 3.5L16 5.5"/></svg>',
+    warn: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6v5M10 14h.01"/><circle cx="10" cy="10" r="7.5"/></svg>',
+    risk: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3.5l7 12.5H3z M10 8v3.5M10 14h.01"/></svg>',
+    info: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4M10 6.5h.01"/></svg>',
+    neutral: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7.5"/></svg>',
+  };
+  return icons[tipo] || icons.neutral;
+}
+
+function renderHeader() {
+  const m = DATA.meta;
+  return el(`
+    <div class="report-header">
+      <div class="report-header-row">
+        <div style="flex:1;">
+          <div class="eyebrow">${m.gerencia} · ${m.periodo}</div>
+          <h1>${m.titulo}</h1>
+        </div>
+        <button class="download-btn" id="download-btn" title="Descargar informe en PDF" onclick="window.print()">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 3v9.5M6.5 9l3.5 3.5L13.5 9"/><path d="M4 14.5v1.3a1.2 1.2 0 001.2 1.2h9.6a1.2 1.2 0 001.2-1.2v-1.3"/></svg>
+        </button>
+      </div>
+      <div class="meta-row">
+        <span class="status-pill ${m.estadoGeneral.tipo}">${statusPillIcon(m.estadoGeneral.tipo)} ${m.estadoGeneral.label}</span>
+        <span>Actualizado: <b>${fmtFecha(m.fechaActualizacion)}</b></span>
+        <span>Fuentes: <b>${m.fuentes.join(", ")}</b></span>
+      </div>
+      <p style="margin-top:14px; font-size:14px; color:var(--ink-soft); max-width:760px;">${m.sintesis}</p>
+    </div>
+  `);
+}
+
+function fmtFecha(iso) {
+  const d = new Date(iso + "T00:00:00");
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString("es-AR", { day: "2-digit", month: "long", year: "numeric" });
+}
+
+function renderKpis() {
+  const section = el(`<div class="section"><div class="section-title">Indicadores Principales</div><div class="kpi-grid"></div></div>`);
+  const grid = section.querySelector(".kpi-grid");
+  DATA.kpis.forEach(k => grid.appendChild(el(`<div class="kpi-card"><div class="l">${k.label}</div><div class="v">${k.value}</div></div>`)));
+  return section;
+}
+
+function renderFlujo() {
+  const f = DATA.flujo;
+  const section = el(`<div class="section"><div class="section-title">Flujo de Iniciativas</div><div class="card"></div></div>`);
+  const card = section.querySelector(".card");
+
+  const capsGrid = el(`<div class="kpi-grid" style="margin-bottom:6px;"></div>`);
+  f.capacidades.forEach(c => capsGrid.appendChild(el(`<div class="kpi-card"><div class="l">${c.label}</div><div class="v" style="font-size:15px;">${c.value}</div></div>`)));
+  card.appendChild(capsGrid);
+
+  card.appendChild(el(`<div class="chart-subtitle">Evolución del estado de las iniciativas (Cumulative Flow Diagram)</div>`));
+
+  // CFD: apilado correcto — cada mes es el reparto del total de la cartera
+  // en 7 estados que suman el 100% de las iniciativas de ese mes.
+  const estados = Object.keys(f.estadosColores);
+  const maxTotal = Math.max(...f.meses.map(m => estados.reduce((s, k) => s + m[k], 0)));
+  const cfd = el(`<div class="cfd-bars"></div>`);
+  f.meses.forEach(m => {
+    const col = el(`<div class="cfd-col"><span class="month-label">${m.mes}</span></div>`);
+    const total = estados.reduce((s, k) => s + m[k], 0);
+    // Orden de apilado: Finalizada abajo (como en el informe de referencia)
+    estados.forEach(k => {
+      const h = (m[k] / maxTotal) * 100;
+      if (h <= 0) return;
+      col.appendChild(el(`<div class="cfd-seg" style="height:${h}%; background:${f.estadosColores[k]};" title="${f.estadosLabels[k]}: ${m[k]}"></div>`));
+    });
+    col.title = `Total: ${total}`;
+    cfd.appendChild(col);
+  });
+  card.appendChild(cfd);
+
+  const legend = el(`<div class="chart-legend"></div>`);
+  estados.forEach(k => legend.appendChild(el(`<span><span class="dot" style="background:${f.estadosColores[k]};"></span>${f.estadosLabels[k]}</span>`)));
+  card.appendChild(legend);
+  card.appendChild(el(`<p class="chart-analysis">${f.analisis}</p>`));
+
+  // Subsección: foto de cierre — UNA sola serie, foto puntual del mes,
+  // NO se apila (cada barra es independiente, se comparan entre sí).
+  const fc = DATA.fotoCierre;
+  card.appendChild(el(`<div class="chart-subtitle">Foto de estado al cierre de ${fc.mes}</div>`));
+  const maxFc = Math.max(...fc.items.map(i => i.value));
+  const rankWrap = el(`<div class="rank-bars"></div>`);
+  fc.items.forEach(i => {
+    const h = (i.value / maxFc) * 100;
+    rankWrap.appendChild(el(`
+      <div class="rank-col">
+        <span class="rank-value">${i.value}</span>
+        <div class="rank-bar" style="height:${h}%; background:${i.color};"></div>
+        <span class="rank-label">${i.label}</span>
+      </div>
+    `));
+  });
+  card.appendChild(rankWrap);
+
+  const resumenRow = el(`<div class="kpi-grid" style="margin-top:6px;"></div>`);
+  fc.resumen.forEach(r => resumenRow.appendChild(el(`<div class="kpi-card"><div class="l">${r.label}</div><div class="v">${r.value}</div></div>`)));
+  card.appendChild(resumenRow);
+
+  return section;
+}
+
+function renderHoras() {
+  const h = DATA.horas;
+  const section = el(`<div class="section"><div class="section-title">Horas: Trazabilidad y Mejora Operativa</div><div class="card"></div></div>`);
+  const card = section.querySelector(".card");
+
+  // Apilado correcto: cada mes reparte el total de horas registradas entre
+  // 3 categorías mutuamente excluyentes (iniciativas / no iniciativa / bugs).
+  const maxTotal = Math.max(...h.meses.map(m => m.iniciativas + m.noiniciativa + m.bugs));
+  const bars = el(`<div class="cfd-bars"></div>`);
+  h.meses.forEach(m => {
+    const col = el(`<div class="cfd-col"><span class="month-label">${m.mes}</span></div>`);
+    // Orden de apilado (de abajo hacia arriba): Iniciativas, No iniciativa, Bugs
+    [["iniciativas", h.colores.iniciativas], ["noiniciativa", h.colores.noiniciativa], ["bugs", h.colores.bugs]].forEach(([k, color]) => {
+      const val = m[k];
+      const hh = (val / maxTotal) * 100;
+      if (hh <= 0) return;
+      col.appendChild(el(`<div class="cfd-seg" style="height:${hh}%; background:${color};" title="${k}: ${val}h"></div>`));
+    });
+    bars.appendChild(col);
+  });
+  card.appendChild(bars);
+
+  card.appendChild(el(`
+    <div class="chart-legend">
+      <span><span class="dot" style="background:${h.colores.iniciativas};"></span>Iniciativas</span>
+      <span><span class="dot" style="background:${h.colores.noiniciativa};"></span>No iniciativa</span>
+      <span><span class="dot" style="background:${h.colores.bugs};"></span>Bugs / Incidentes</span>
+    </div>
+  `));
+  card.appendChild(el(`<p class="chart-analysis">${h.analisis}</p>`));
+
+  return section;
+}
+
+function renderDimensiones() {
+  const section = el(`<div class="section"><div class="section-title">Dimensiones del Framework</div><div class="dims-grid"></div></div>`);
+  const grid = section.querySelector(".dims-grid");
+  DATA.dimensiones.forEach(d => {
+    grid.appendChild(el(`
+      <div class="card dim-card">
+        <h4>${d.nombre}</h4>
+        <div class="dim-meta">
+          <span class="status-pill ${d.tipo}">${statusPillIcon(d.tipo)} ${d.estado}</span>
+        </div>
+        <div class="dim-evidencia"><b>Confianza:</b> ${d.confianza}</div>
+        <div class="dim-evidencia">${d.evidencia}</div>
+        <div class="dim-fuente">Fuente: ${d.fuente}</div>
+      </div>
+    `));
+  });
+  return section;
+}
+
+function nivelColor(n) {
+  if (n == null) return { bg: "var(--slate-soft)", fg: "var(--slate)" };
+  if (n <= 1.5) return { bg: "var(--coral-soft)", fg: "var(--coral)" };
+  if (n <= 2.5) return { bg: "var(--yellow-soft)", fg: "var(--yellow)" };
+  if (n <= 3.5) return { bg: "var(--blue-soft)", fg: "var(--blue)" };
+  return { bg: "var(--green-soft)", fg: "var(--green)" };
+}
+
+function renderMadurez() {
+  const section = el(`<div class="section"><div class="section-title">Madurez de Equipos</div><div class="card"></div></div>`);
+  const card = section.querySelector(".card");
+
+  const leyenda = Object.entries(DATA.madurezNiveles).map(([n, label]) => `${n} = ${label}`).join(" · ");
+  card.appendChild(el(`<p class="madurez-legend">Escala: ${leyenda}. Los valores N/A se excluyen del promedio.</p>`));
+
+  // Comparación Marzo vs Julio — DOS mediciones independientes por dimensión.
+  // Formato horizontal (mejor que barras agrupadas verticales con 16 categorías).
+  const COLOR_MARZO = "#9B9B9B", COLOR_JULIO = "#2B547E";
+  card.appendChild(el(`<div class="chart-subtitle">Evolución de madurez: Marzo vs Julio (16 dimensiones)</div>`));
+  card.appendChild(el(`
+    <div class="hcompare-head">
+      <span></span><span>Marzo</span><span>Julio</span><span style="text-align:right;">Δ</span>
+    </div>
+  `));
+  const compareList = el(`<div></div>`);
+  DATA.madurezComparacion.forEach(d => {
+    const delta = d.b - d.a;
+    const deltaColor = delta > 0 ? "var(--green)" : (delta < 0 ? "var(--coral)" : "var(--slate)");
+    compareList.appendChild(el(`
+      <div class="hcompare-row">
+        <span class="hc-label">${d.label}</span>
+        <div class="hc-track"><div class="hc-fill" style="width:${(d.a/5)*100}%; background:${COLOR_MARZO};"></div></div>
+        <div class="hc-track"><div class="hc-fill" style="width:${(d.b/5)*100}%; background:${COLOR_JULIO};"></div></div>
+        <span class="hc-delta" style="color:${deltaColor};">${delta >= 0 ? "+" : ""}${delta.toFixed(1)}</span>
+      </div>
+    `));
+  });
+  card.appendChild(compareList);
+  card.appendChild(el(`
+    <div class="chart-legend" style="margin-top:10px;">
+      <span><span class="dot" style="background:${COLOR_MARZO};"></span>Marzo</span>
+      <span><span class="dot" style="background:${COLOR_JULIO};"></span>Julio</span>
+    </div>
+  `));
+
+  // Ranking horizontal agregado — útil con muchas categorías / nombres largos.
+  card.appendChild(el(`<div class="chart-subtitle">Fortalezas y oportunidades — ranking agregado de julio</div>`));
+  const hrankList = el(`<div class="hrank-list"></div>`);
+  const maxRank = 5; // escala fija 0-5
+  DATA.madurezRanking.forEach(r => {
+    const pct = (r.value / maxRank) * 100;
+    const c = nivelColor(r.value);
+    hrankList.appendChild(el(`
+      <div class="hrank-row">
+        <span class="hrank-label">${r.label}</span>
+        <div class="hrank-track"><div class="hrank-fill" style="width:${pct}%; background:${c.fg};"></div></div>
+        <span class="hrank-value">${r.value.toFixed(1)}</span>
+      </div>
+    `));
+  });
+  card.appendChild(hrankList);
+
+  // Tabla de madurez por equipo (detalle, julio)
+  card.appendChild(el(`<div class="chart-subtitle">Detalle por equipo — Julio</div>`));
+  const tableWrap = el(`<div class="madurez-table-wrap"></div>`);
+  const table = el(`<table class="madurez"><thead><tr><th>Equipo</th>${DATA.madurezPracticas.map(p => `<th>${p}</th>`).join("")}<th>Promedio</th></tr></thead><tbody></tbody></table>`);
+  const tbody = table.querySelector("tbody");
+
+  DATA.madurezEquipos.forEach(eq => {
+    const validos = eq.valores.filter(v => v != null);
+    const prom = validos.length ? (validos.reduce((a, b) => a + b, 0) / validos.length) : null;
+    const row = el(`<tr><td>${eq.equipo}</td></tr>`);
+    eq.valores.forEach(v => {
+      const c = nivelColor(v);
+      row.appendChild(el(`<td class="num">${v == null ? "—" : `<span class="nivel-badge" style="background:${c.bg}; color:${c.fg};">${v}</span>`}</td>`));
+    });
+    const cProm = nivelColor(prom);
+    row.appendChild(el(`<td class="num"><span class="nivel-badge" style="background:${cProm.bg}; color:${cProm.fg}; font-weight:700;">${prom == null ? "—" : prom.toFixed(1)}</span></td>`));
+    tbody.appendChild(row);
+  });
+
+  tableWrap.appendChild(table);
+  card.appendChild(tableWrap);
+  return section;
+}
+
+function renderHallazgos() {
+  const h = DATA.hallazgos;
+  const section = el(`<div class="section"><div class="section-title">Hallazgos</div><div class="hallazgos-grid" style="grid-template-columns:repeat(2,1fr);"></div></div>`);
+  const grid = section.querySelector(".hallazgos-grid");
+
+  const col1 = el(`<div class="hallazgo-col"><h4><span class="status-pill ok">${statusPillIcon("ok")} Fortalezas</span></h4></div>`);
+  h.fortalezas.forEach(f => col1.appendChild(el(`<div class="hallazgo-item"><div class="titulo">${f.titulo}</div><div class="evidencia">${f.evidencia}</div></div>`)));
+
+  const col2 = el(`<div class="hallazgo-col"><h4><span class="status-pill risk">${statusPillIcon("risk")} Brechas / Riesgos</span></h4></div>`);
+  h.riesgos.forEach(r => col2.appendChild(el(`<div class="hallazgo-item"><div class="titulo">${r.titulo}</div><div class="evidencia">${r.evidencia}</div></div>`)));
+
+  grid.appendChild(col1); grid.appendChild(col2);
+  section.appendChild(el(`<p class="chart-analysis" style="margin-top:14px;"><b>Interpretación ejecutiva:</b> ${h.interpretacion}</p>`));
+  return section;
+}
+
+function renderAcciones() {
+  const a = DATA.acciones;
+  const section = el(`<div class="section"><div class="section-title">Próximas Acciones Recomendadas</div><div class="card"></div></div>`);
+  const card = section.querySelector(".card");
+  const grid = el(`<div class="dims-grid"></div>`);
+  a.items.forEach(item => {
+    grid.appendChild(el(`
+      <div class="card dim-card" style="box-shadow:none; border-style:dashed;">
+        <span class="status-pill info" style="margin-bottom:8px;">${item.plazo}</span>
+        <h4>${item.titulo}</h4>
+        <div class="dim-evidencia">${item.descripcion}</div>
+      </div>
+    `));
+  });
+  card.appendChild(grid);
+  card.appendChild(el(`<p class="chart-analysis" style="margin-top:16px;"><b>Resultado esperado:</b> ${a.resultadoEsperado}</p>`));
+  return section;
+}
+
+function renderMetodologia() {
+  const m = DATA.metodologia;
+  return el(`
+    <div class="section">
+      <div class="section-title">Metodología y Trazabilidad</div>
+      <details class="metodologia">
+        <summary>Base de evidencia utilizada</summary>
+        <div class="fuentes-grid">
+          ${m.fuentesDetalle.map(fd => `
+            <div class="fuente-card-box">
+              <div class="ft-title">${fd.titulo}</div>
+              ${fd.items.map(it => `<div class="ft-item">${it}</div>`).join("")}
+            </div>
+          `).join("")}
+        </div>
+        <p style="margin-top:14px;">${m.resumen}</p>
+      </details>
+    </div>
+  `);
+}
+
+// ------------------------------------------------------------
+// INIT
+// ------------------------------------------------------------
+const app = document.getElementById("app");
+app.appendChild(renderHeader());
+app.appendChild(renderKpis());
+app.appendChild(renderFlujo());
+app.appendChild(renderHoras());
+app.appendChild(renderDimensiones());
+app.appendChild(renderMadurez());
+app.appendChild(renderHallazgos());
+app.appendChild(renderAcciones());
+app.appendChild(renderMetodologia());
+</script>
+</body>
+</html>

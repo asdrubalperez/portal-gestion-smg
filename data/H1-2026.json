@@ -845,5 +845,15 @@
       ]
     }
   ],
-  "jiraBaseUrl": "https://swiss-medical.atlassian.net/browse/"
+  "jiraBaseUrl": "https://swiss-medical.atlassian.net/browse/",
+  "informes": [
+    {
+      "id": "assessment-seguros-2026",
+      "titulo": "Assessment de Agilidad — Gerencia de Seguros",
+      "categoria": "Assessment",
+      "descripcion": "Adopción del framework y visibilidad operativa de la Gerencia de Seguros (enero–julio 2026).",
+      "fecha": "2026-07-31",
+      "archivo": "informes/assessment-seguros-2026.html"
+    }
+  ]
 }

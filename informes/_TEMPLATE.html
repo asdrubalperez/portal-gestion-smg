@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[Título del informe] — Swiss Medical Group</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PLANTILLA DE INFORME AUTOCONTENIDO — Portal Ejecutivo SMG
+   ============================================================
+   Este archivo es un ejemplo/plantilla, NO un informe real.
+   Todo el contenido de abajo es de ejemplo (placeholder) — hay
+   que reemplazarlo por datos reales antes de considerarlo
+   terminado. Buscá "[Reemplazar]" para ubicar cada punto.
+
+   REGLAS DE ESTE ARCHIVO:
+   - Un solo archivo HTML autocontenido (CSS y JS inline, como
+     este mismo). No depende de ningún otro archivo del portal.
+   - Los ÚNICOS recursos externos permitidos son las fuentes de
+     Google Fonts de arriba (Inter + IBM Plex Mono, las mismas
+     que usa el portal). Si preferís cero dependencias externas,
+     borrá esas dos líneas <link> — el CSS ya tiene un fallback a
+     fuentes del sistema que se ve razonablemente similar.
+   - Los datos van en el objeto DATA (abajo, en el <script>),
+     separados de las funciones que arman el HTML. No hardcodees
+     valores directo en las funciones de render.
+   - Debe verse bien tanto dentro de un iframe del portal (~900–
+     1100px de ancho) como abierto standalone a pantalla completa.
+   - Accesible: no uses el color como único indicador de estado.
+     Acompañalo siempre de texto o un ícono/etiqueta.
+   ============================================================ */
+
+:root {
+  /* Estos son EXACTAMENTE los mismos tokens de color que usa el
+     portal (styles.css). Si copiás este archivo para otro informe,
+     no los cambies — así todos los informes se ven consistentes
+     entre sí y con el portal, aunque cada uno sea un archivo aparte. */
+  --ink: #1A1A1A;
+  --ink-soft: #46464A;
+  --bg: #F4F5F7;
+  --surface: #FFFFFF;
+  --surface-sunken: #EFF0F2;
+  --border: #E4E5E8;
+  --border-strong: #D2D3D7;
+
+  --accent: #1C1C1E;
+  --coral: #A82C30;
+  --coral-soft: #F7E3E3;
+  --green: #197B53;
+  --green-soft: #E2F5EE;
+  --blue: #246178;
+  --blue-soft: #E3F4F8;
+  --gray-status: #617086;
+  --gray-status-soft: #DFE8F1;
+  --yellow: #B7791F;
+  --yellow-soft: #FDF3DC;
+  --slate: #6B6B70;
+  --slate-soft: #EDEDEF;
+
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(26,26,26,0.05), 0 1px 1px rgba(26,26,26,0.04);
+  --shadow-md: 0 4px 12px rgba(26,26,26,0.07), 0 1px 3px rgba(26,26,26,0.05);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+h1, h2, h3, h4 { margin: 0; font-weight: 650; letter-spacing: -0.01em; }
+p { margin: 0; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px; }
+
+/* Header */
+.report-header { margin-bottom: 24px; }
+.report-header .eyebrow {
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--coral); margin-bottom: 6px;
+}
+.report-header h1 { font-size: 23px; margin-bottom: 6px; }
+.report-header .meta-row { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--slate); margin-top: 8px; }
+.report-header .meta-row b { color: var(--ink); font-weight: 600; }
+
+/* Sections */
+.section { margin-bottom: 30px; }
+.section-title {
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate);
+  font-weight: 700; margin-bottom: 14px;
+}
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 18px 20px; box-shadow: var(--shadow-sm);
+}
+
+/* KPI grid */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 800px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+.kpi-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+.kpi-card .l { font-size: 11.5px; color: var(--slate); margin-bottom: 6px; }
+.kpi-card .v { font-family: var(--font-mono); font-size: 19px; font-weight: 600; }
+
+/* Status pill (usar SIEMPRE con texto, no solo color) */
+.status-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px;
+}
+.status-pill.ok { background: var(--green-soft); color: var(--green); }
+.status-pill.warn { background: var(--yellow-soft); color: var(--yellow); }
+.status-pill.risk { background: var(--coral-soft); color: var(--coral); }
+.status-pill.info { background: var(--blue-soft); color: var(--blue); }
+.status-pill.neutral { background: var(--gray-status-soft); color: var(--gray-status); }
+.status-pill svg { width: 11px; height: 11px; }
+
+/* Flujo de iniciativas — Cumulative Flow Diagram: barras APILADAS por mes.
+   Es correcto apilar acá porque cada mes es un reparto del total de la
+   cartera por estado (las categorías son mutuamente excluyentes y suman
+   el 100% de las iniciativas de ese mes). NO usar este patrón para series
+   que no sean partes de un mismo total. */
+.cfd-bars { display: flex; align-items: flex-end; gap: 14px; height: 220px; margin: 16px 0 6px; }
+.cfd-col { flex: 1; display: flex; flex-direction: column-reverse; align-items: stretch; height: 100%; position: relative; }
+.cfd-seg { width: 100%; }
+.cfd-col .month-label { position: absolute; bottom: -20px; left: 0; right: 0; text-align: center; font-size: 11px; color: var(--slate); }
+.chart-legend { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; font-size: 11.5px; color: var(--ink-soft); }
+.chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chart-legend .dot { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+
+/* Ranking simple — UNA sola serie, una foto puntual (ej. estado al cierre
+   de un mes). NO apilar: cada barra es independiente, se comparan entre sí. */
+.rank-bars { display: flex; align-items: flex-end; gap: 10px; height: 160px; margin: 16px 0 26px; }
+.rank-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+.rank-col .rank-value { font-family: var(--font-mono); font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+.rank-col .rank-bar { width: 70%; border-radius: 3px 3px 0 0; }
+.rank-col .rank-label { font-size: 10.5px; color: var(--slate); margin-top: 8px; text-align: center; line-height: 1.3; }
+
+/* Comparación agrupada — DOS series lado a lado por categoría (ej. Marzo
+   vs Julio). NO apilar: no son partes de un total, son dos mediciones a
+   comparar una junto a la otra. */
+.grouped-bars { display: flex; align-items: flex-end; gap: 18px; height: 160px; margin: 16px 0 26px; }
+.grouped-col { flex: 1; display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 100%; position: relative; }
+.grouped-col .bar-pair { display: flex; align-items: flex-end; gap: 3px; height: 100%; }
+.grouped-col .bar-pair .gbar { width: 16px; border-radius: 2px 2px 0 0; position: relative; }
+.grouped-col .gbar .gval { position: absolute; top: -16px; left: 0; right: 0; text-align: center; font-size: 10px; font-family: var(--font-mono); color: var(--ink-soft); }
+.grouped-col .cat-label { position: absolute; bottom: -34px; left: -20px; right: -20px; text-align: center; font-size: 10.5px; color: var(--slate); line-height: 1.25; }
+
+/* Ranking horizontal — buena opción cuando hay muchas categorías y los
+   nombres son largos (no entran como eje X vertical). */
+.hrank-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0 4px; }
+.hrank-row { display: grid; grid-template-columns: 150px 1fr 46px; align-items: center; gap: 10px; }
+.hrank-row .hrank-label { font-size: 11.5px; color: var(--ink-soft); text-align: right; }
+.hrank-row .hrank-track { background: var(--surface-sunken); border-radius: 3px; height: 16px; position: relative; }
+.hrank-row .hrank-fill { height: 100%; border-radius: 3px; }
+.hrank-row .hrank-value { font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; }
+.chart-analysis { margin-top: 14px; font-size: 13px; color: var(--ink-soft); }
+.chart-subtitle { font-size: 13px; font-weight: 600; color: var(--ink); margin: 22px 0 4px; }
+.chart-subtitle:first-child { margin-top: 0; }
+
+/* Dimensiones del framework */
+.dims-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+@media (max-width: 900px) { .dims-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 620px) { .dims-grid { grid-template-columns: 1fr; } }
+.dim-card h4 { font-size: 13.5px; margin-bottom: 8px; }
+.dim-card .dim-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.dim-card .dim-evidencia { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 6px; }
+.dim-card .dim-fuente { font-size: 11px; color: var(--slate); }
+
+/* Madurez de equipos */
+.madurez-legend { font-size: 12px; color: var(--slate); margin-bottom: 12px; }
+.madurez-table-wrap { overflow-x: auto; }
+table.madurez { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.madurez th, table.madurez td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+table.madurez th { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.03em; color: var(--slate); background: var(--surface-sunken); }
+table.madurez td.num { font-family: var(--font-mono); text-align: center; }
+.nivel-badge { display: inline-block; padding: 2px 7px; border-radius: 5px; font-size: 11px; font-weight: 600; }
+
+/* Hallazgos */
+.hallazgos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 900px) { .hallazgos-grid { grid-template-columns: 1fr; } }
+.hallazgo-col h4 { font-size: 13px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.hallazgo-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 12px 14px; margin-bottom: 8px; font-size: 12.5px; }
+.hallazgo-item .titulo { font-weight: 600; margin-bottom: 4px; }
+.hallazgo-item .evidencia { color: var(--slate); font-size: 11.5px; }
+.hallazgo-item .accion-meta { margin-top: 6px; font-size: 11px; color: var(--blue); font-weight: 600; }
+
+/* Metodología (panel colapsable nativo, sin JS) */
+details.metodologia { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px 18px; }
+details.metodologia summary { cursor: pointer; font-weight: 600; font-size: 13.5px; }
+details.metodologia .fuentes { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+details.metodologia .fuente-chip { font-size: 11.5px; background: var(--slate-soft); color: var(--ink-soft); padding: 4px 10px; border-radius: 100px; }
+details.metodologia p { font-size: 12.5px; color: var(--ink-soft); margin-top: 10px; }
+
+/* Botón de descarga — mismo estilo que el botón principal del portal */
+.report-header-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.download-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+.download-btn:hover { background: var(--surface-sunken); border-color: var(--border-strong); color: var(--ink); }
+.download-btn svg { width: 17px; height: 17px; }
+
+@media print {
+  .download-btn { display: none !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+  @page { margin: 14mm 12mm; }
+  .card, .kpi-card, .dim-card, .hallazgo-item { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+// ============================================================
+// DATA — todo el contenido variable va acá. [Reemplazar] por
+// datos reales. Nada de esto debería vivir hardcodeado dentro
+// de las funciones de render de más abajo.
+// ============================================================
+const DATA = {
+  meta: {
+    titulo: "[Reemplazar] Assessment de Agilidad — Gerencia de Seguros",
+    gerencia: "Seguros",
+    periodo: "Enero – Julio 2026",
+    estadoGeneral: { label: "Adopción en progreso", tipo: "warn" }, // tipo: ok | warn | risk | info | neutral
+    fechaActualizacion: "2026-08-01",
+    sintesis: "[Reemplazar] Síntesis ejecutiva de 2-3 líneas: qué se evaluó, principal conclusión y hacia dónde va la gerencia en términos de adopción del framework.",
+    fuentes: ["Jira Product Discovery", "Jira Software", "Tempo", "Assessment de madurez"],
+  },
+
+  kpis: [
+    { label: "Total de iniciativas", value: "147" },
+    { label: "Iniciativas activas", value: "89" },
+    { label: "Iniciativas archivadas", value: "58" },
+    { label: "Presupuesto total", value: "USD 320.000" },
+    { label: "Ejecución total", value: "USD 210.400" },
+    { label: "% de ejecución", value: "65,8%" },
+    { label: "Horas en iniciativas", value: "4.120h" },
+    { label: "Horas en incidentes", value: "380h" },
+  ],
+
+  // Flujo de iniciativas: Cumulative Flow Diagram — cada mes reparte el
+  // total de la cartera en 7 estados mutuamente excluyentes (por eso se
+  // apila correctamente: la suma de las 7 categorías = total del mes).
+  flujo: {
+    capacidades: [
+      { label: "Salud del Backlog / Preselección (prom. mensual)", value: "72%" },
+      { label: "Capacidad de Discovery (prom. mensual)", value: "18 iniciativas/mes" },
+      { label: "Capacidad de Delivery (prom. mensual)", value: "12 iniciativas/mes" },
+      { label: "Capacidad de entrega (prom. mensual)", value: "9 iniciativas/mes" },
+    ],
+    // Colores tomados 1:1 del informe de referencia — mantenerlos así para
+    // que todo lo que sea "estado de iniciativas" se vea igual entre informes.
+    estadosColores: {
+      finalizada: "#2B547E", delivery: "#3F7FB5", discovery: "#6AA4CF",
+      backlog: "#A8D0E3", aprobacion: "#F0B35A", onhold: "#B3A08F",
+      cancelada: "#C9573E", otros: "#8A8A90",
+    },
+    estadosLabels: {
+      finalizada: "Finalizada", delivery: "Delivery", discovery: "Discovery",
+      backlog: "Backlog/Preselección", aprobacion: "Aprobación", onhold: "On Hold",
+      cancelada: "Cancelada", otros: "Otros",
+    },
+    meses: [
+      { mes: "Ene", finalizada: 25, delivery: 30, discovery: 9, backlog: 18, aprobacion: 1, onhold: 4, cancelada: 1, otros: 0 },
+      { mes: "Feb", finalizada: 61, delivery: 22, discovery: 6, backlog: 23, aprobacion: 0, onhold: 3, cancelada: 0, otros: 0 },
+      { mes: "Mar", finalizada: 86, delivery: 6, discovery: 6, backlog: 30, aprobacion: 1, onhold: 1, cancelada: 0, otros: 0 },
+      { mes: "Abr", finalizada: 87, delivery: 21, discovery: 8, backlog: 8, aprobacion: 1, onhold: 8, cancelada: 5, otros: 0 },
+      { mes: "May", finalizada: 87, delivery: 28, discovery: 20, backlog: 0, aprobacion: 5, onhold: 5, cancelada: 5, otros: 0 },
+      { mes: "Jun", finalizada: 99, delivery: 35, discovery: 49, backlog: 0, aprobacion: 4, onhold: 8, cancelada: 2, otros: 0 },
+      { mes: "Jul", finalizada: 131, delivery: 24, discovery: 11, backlog: 15, aprobacion: 5, onhold: 8, cancelada: 6, otros: 0 },
+    ],
+    analisis: "[Reemplazar] Análisis textual: ¿el backlog crece o se mantiene? ¿el WIP es estable? ¿la capacidad de entrega acompaña la demanda? Ser específico con las cifras del gráfico de arriba.",
+  },
+
+  // Foto de cierre: UNA sola serie, una foto puntual del último mes — NO es
+  // acumulativo, por eso NO se apila. Cada barra es independiente.
+  fotoCierre: {
+    mes: "Julio",
+    items: [
+      { label: "Finalizada", value: 127, color: "#2B547E" },
+      { label: "Delivery", value: 28, color: "#3F7FB5" },
+      { label: "Discovery", value: 11, color: "#6AA4CF" },
+      { label: "Backlog/Preselección", value: 15, color: "#A8D0E3" },
+      { label: "Aprobación", value: 5, color: "#F0B35A" },
+      { label: "On Hold", value: 8, color: "#B3A08F" },
+      { label: "Cancelada", value: 6, color: "#C9573E" },
+    ],
+  },
+
+  // Las 6 dimensiones del framework
+  dimensiones: [
+    { nombre: "Gestión de demanda y priorización", estado: "Consolidado", tipo: "ok", alcance: "Toda la gerencia", confianza: "Alta", evidencia: "[Reemplazar] resumen de evidencia", fuente: "Jira Product Discovery" },
+    { nombre: "Discovery / Inception", estado: "En desarrollo", tipo: "warn", alcance: "3 de 4 equipos", confianza: "Media", evidencia: "[Reemplazar] resumen de evidencia", fuente: "Jira Product Discovery" },
+    { nombre: "Planificación", estado: "Consolidado", tipo: "ok", alcance: "Toda la gerencia", confianza: "Alta", evidencia: "[Reemplazar] resumen de evidencia", fuente: "Jira Software" },
+    { nombre: "Ejecución de los equipos", estado: "En desarrollo", tipo: "warn", alcance: "Todos los equipos", confianza: "Media", evidencia: "[Reemplazar] resumen de evidencia", fuente: "Tempo" },
+    { nombre: "Entregas y resultados", estado: "Incipiente", tipo: "risk", alcance: "2 de 4 equipos", confianza: "Baja", evidencia: "[Reemplazar] resumen de evidencia", fuente: "Jira Software" },
+    { nombre: "Mejora continua", estado: "Incipiente", tipo: "risk", alcance: "1 de 4 equipos", confianza: "Baja", evidencia: "[Reemplazar] resumen de evidencia", fuente: "Assessment de madurez" },
+  ],
+
+  // Comparación agrupada — DOS momentos por dimensión (no se apila, son
+  // dos mediciones independientes que se comparan lado a lado).
+  madurezComparacion: {
+    serieA: { label: "Marzo", color: "#9B9B9B" },
+    serieB: { label: "Julio", color: "#2B547E" },
+    dimensiones: [
+      { label: "Estimación y priorización", a: 1.9, b: 3.1 },
+      { label: "Entrega de valor", a: 2.3, b: 3.3 },
+      { label: "Eventos ágiles", a: 2.3, b: 3.0 },
+      { label: "Métricas ágiles", a: 1.9, b: 2.9 },
+      { label: "Salud del backlog", a: 1.9, b: 2.6 },
+    ],
+  },
+
+  // Ranking horizontal agregado (todas las prácticas, no por equipo) — útil
+  // cuando hay muchas categorías con nombres largos.
+  madurezRanking: [
+    { label: "Salud del backlog", value: 2.6 },
+    { label: "Chequeo de interfaces", value: 2.8 },
+    { label: "Testing", value: 2.9 },
+    { label: "Revisión de código", value: 2.9 },
+    { label: "Métricas ágiles", value: 2.9 },
+    { label: "Estimación y priorización", value: 3.1 },
+    { label: "General", value: 3.2 },
+    { label: "Colaboración", value: 3.6 },
+    { label: "Orientación a resultados", value: 3.8 },
+    { label: "Nivel de confianza", value: 3.9 },
+  ],
+
+  // Madurez de equipos — 1=SHU, 2=Transición a HA, 3=HA, 4=Transición a RI, 5=RI
+  // Usar null (no el string "N/A") para excluirlo del promedio.
+  madurezNiveles: { 1: "SHU", 2: "Transición a HA", 3: "HA", 4: "Transición a RI", 5: "RI" },
+  madurezPracticas: ["Estimación y priorización", "Entrega de valor", "Eventos ágiles", "Impedimentos", "Métricas ágiles", "Salud del backlog"],
+  madurezEquipos: [
+    { equipo: "[Reemplazar] Equipo 1", valores: [3, 2, 3, 3, 2, 3] },
+    { equipo: "[Reemplazar] Equipo 2", valores: [2, 2, 3, 2, null, 3] },
+    { equipo: "[Reemplazar] Equipo 3", valores: [4, 3, 3, 3, 3, 4] },
+  ],
+
+  hallazgos: {
+    fortalezas: [
+      { titulo: "[Reemplazar] Fortaleza 1", evidencia: "[Reemplazar] evidencia que la sustenta" },
+      { titulo: "[Reemplazar] Fortaleza 2", evidencia: "[Reemplazar] evidencia que la sustenta" },
+    ],
+    riesgos: [
+      { titulo: "[Reemplazar] Riesgo o brecha 1", evidencia: "[Reemplazar] evidencia que la sustenta" },
+      { titulo: "[Reemplazar] Riesgo o brecha 2", evidencia: "[Reemplazar] evidencia que la sustenta" },
+    ],
+    acciones: [
+      { titulo: "[Reemplazar] Acción recomendada 1", evidencia: "[Reemplazar] evidencia/justificación", responsable: "[Reemplazar] Nombre/rol", plazo: "[Reemplazar] ej. Q4 2026" },
+    ],
+  },
+
+  metodologia: {
+    resumen: "Los resultados se construyeron combinando datos de Jira Product Discovery (iniciativas y su estado), Jira Software (ejecución y entregas), Tempo (horas reales) y un assessment de madurez aplicado a los equipos.",
+    fuentes: ["Jira Product Discovery", "Jira Software", "Tempo", "Assessment de madurez (encuesta a equipos)"],
+    definiciones: "[Reemplazar] Definiciones y criterios de cálculo relevantes — por ejemplo, cómo se calcula 'capacidad de Discovery' o qué se considera 'iniciativa activa'.",
+  },
+};
+
+// ============================================================
+// RENDER — funciones que arman el HTML a partir de DATA.
+// No debería hacer falta tocar nada de acá al completar un
+// informe nuevo; alcanza con editar el objeto DATA de arriba.
+// ============================================================
+
+function el(html) {
+  const t = document.createElement("template");
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+}
+
+function statusPillIcon(tipo) {
+  const icons = {
+    ok: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5l3.5 3.5L16 5.5"/></svg>',
+    warn: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6v5M10 14h.01"/><circle cx="10" cy="10" r="7.5"/></svg>',
+    risk: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3.5l7 12.5H3z M10 8v3.5M10 14h.01"/></svg>',
+    info: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4M10 6.5h.01"/></svg>',
+    neutral: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="7.5"/></svg>',
+  };
+  return icons[tipo] || icons.neutral;
+}
+
+function renderHeader() {
+  const m = DATA.meta;
+  return el(`
+    <div class="report-header">
+      <div class="report-header-row">
+        <div style="flex:1;">
+          <div class="eyebrow">${m.gerencia} · ${m.periodo}</div>
+          <h1>${m.titulo}</h1>
+        </div>
+        <button class="download-btn" id="download-btn" title="Descargar informe en PDF" onclick="window.print()">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 3v9.5M6.5 9l3.5 3.5L13.5 9"/><path d="M4 14.5v1.3a1.2 1.2 0 001.2 1.2h9.6a1.2 1.2 0 001.2-1.2v-1.3"/></svg>
+        </button>
+      </div>
+      <div class="meta-row">
+        <span class="status-pill ${m.estadoGeneral.tipo}">${statusPillIcon(m.estadoGeneral.tipo)} ${m.estadoGeneral.label}</span>
+        <span>Actualizado: <b>${fmtFecha(m.fechaActualizacion)}</b></span>
+        <span>Fuentes: <b>${m.fuentes.join(", ")}</b></span>
+      </div>
+      <p style="margin-top:14px; font-size:14px; color:var(--ink-soft); max-width:760px;">${m.sintesis}</p>
+    </div>
+  `);
+}
+
+function fmtFecha(iso) {
+  const d = new Date(iso + "T00:00:00");
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString("es-AR", { day: "2-digit", month: "long", year: "numeric" });
+}
+
+function renderKpis() {
+  const section = el(`<div class="section"><div class="section-title">Indicadores Principales</div><div class="kpi-grid"></div></div>`);
+  const grid = section.querySelector(".kpi-grid");
+  DATA.kpis.forEach(k => grid.appendChild(el(`<div class="kpi-card"><div class="l">${k.label}</div><div class="v">${k.value}</div></div>`)));
+  return section;
+}
+
+function renderFlujo() {
+  const f = DATA.flujo;
+  const section = el(`<div class="section"><div class="section-title">Flujo de Iniciativas</div><div class="card"></div></div>`);
+  const card = section.querySelector(".card");
+
+  const capsGrid = el(`<div class="kpi-grid" style="margin-bottom:6px;"></div>`);
+  f.capacidades.forEach(c => capsGrid.appendChild(el(`<div class="kpi-card"><div class="l">${c.label}</div><div class="v" style="font-size:15px;">${c.value}</div></div>`)));
+  card.appendChild(capsGrid);
+
+  card.appendChild(el(`<div class="chart-subtitle">Evolución del estado de las iniciativas (Cumulative Flow Diagram)</div>`));
+
+  // CFD: apilado correcto — cada mes es el reparto del total de la cartera
+  // en 7 estados que suman el 100% de las iniciativas de ese mes.
+  const estados = Object.keys(f.estadosColores);
+  const maxTotal = Math.max(...f.meses.map(m => estados.reduce((s, k) => s + m[k], 0)));
+  const cfd = el(`<div class="cfd-bars"></div>`);
+  f.meses.forEach(m => {
+    const col = el(`<div class="cfd-col"><span class="month-label">${m.mes}</span></div>`);
+    const total = estados.reduce((s, k) => s + m[k], 0);
+    // Orden de apilado: Finalizada abajo (como en el informe de referencia)
+    estados.forEach(k => {
+      const h = (m[k] / maxTotal) * 100;
+      if (h <= 0) return;
+      col.appendChild(el(`<div class="cfd-seg" style="height:${h}%; background:${f.estadosColores[k]};" title="${f.estadosLabels[k]}: ${m[k]}"></div>`));
+    });
+    col.title = `Total: ${total}`;
+    cfd.appendChild(col);
+  });
+  card.appendChild(cfd);
+
+  const legend = el(`<div class="chart-legend"></div>`);
+  estados.forEach(k => legend.appendChild(el(`<span><span class="dot" style="background:${f.estadosColores[k]};"></span>${f.estadosLabels[k]}</span>`)));
+  card.appendChild(legend);
+  card.appendChild(el(`<p class="chart-analysis">${f.analisis}</p>`));
+
+  // Subsección: foto de cierre — UNA sola serie, foto puntual del mes,
+  // NO se apila (cada barra es independiente, se comparan entre sí).
+  const fc = DATA.fotoCierre;
+  card.appendChild(el(`<div class="chart-subtitle">Foto de estado al cierre de ${fc.mes}</div>`));
+  const maxFc = Math.max(...fc.items.map(i => i.value));
+  const rankWrap = el(`<div class="rank-bars"></div>`);
+  fc.items.forEach(i => {
+    const h = (i.value / maxFc) * 100;
+    rankWrap.appendChild(el(`
+      <div class="rank-col">
+        <span class="rank-value">${i.value}</span>
+        <div class="rank-bar" style="height:${h}%; background:${i.color};"></div>
+        <span class="rank-label">${i.label}</span>
+      </div>
+    `));
+  });
+  card.appendChild(rankWrap);
+
+  return section;
+}
+
+function renderDimensiones() {
+  const section = el(`<div class="section"><div class="section-title">Dimensiones del Framework</div><div class="dims-grid"></div></div>`);
+  const grid = section.querySelector(".dims-grid");
+  DATA.dimensiones.forEach(d => {
+    grid.appendChild(el(`
+      <div class="card dim-card">
+        <h4>${d.nombre}</h4>
+        <div class="dim-meta">
+          <span class="status-pill ${d.tipo}">${statusPillIcon(d.tipo)} ${d.estado}</span>
+        </div>
+        <div class="dim-evidencia"><b>Alcance:</b> ${d.alcance} · <b>Confianza:</b> ${d.confianza}</div>
+        <div class="dim-evidencia">${d.evidencia}</div>
+        <div class="dim-fuente">Fuente: ${d.fuente}</div>
+      </div>
+    `));
+  });
+  return section;
+}
+
+function nivelColor(n) {
+  if (n == null) return { bg: "var(--slate-soft)", fg: "var(--slate)" };
+  if (n <= 1.5) return { bg: "var(--coral-soft)", fg: "var(--coral)" };
+  if (n <= 2.5) return { bg: "var(--yellow-soft)", fg: "var(--yellow)" };
+  if (n <= 3.5) return { bg: "var(--blue-soft)", fg: "var(--blue)" };
+  return { bg: "var(--green-soft)", fg: "var(--green)" };
+}
+
+function renderMadurez() {
+  const section = el(`<div class="section"><div class="section-title">Madurez de Equipos</div><div class="card"></div></div>`);
+  const card = section.querySelector(".card");
+
+  const leyenda = Object.entries(DATA.madurezNiveles).map(([n, label]) => `${n} = ${label}`).join(" · ");
+  card.appendChild(el(`<p class="madurez-legend">Escala: ${leyenda}. Los valores N/A se excluyen del promedio.</p>`));
+
+  // Comparación agrupada — DOS mediciones lado a lado por dimensión.
+  // NO se apila: no son partes de un total, son dos fotos independientes.
+  const mc = DATA.madurezComparacion;
+  card.appendChild(el(`<div class="chart-subtitle">Evolución de madurez: ${mc.serieA.label} vs ${mc.serieB.label}</div>`));
+  const grouped = el(`<div class="grouped-bars"></div>`);
+  mc.dimensiones.forEach(d => {
+    const col = el(`<div class="grouped-col"><span class="cat-label">${d.label}</span></div>`);
+    const pair = el(`<div class="bar-pair"></div>`);
+    [["a", mc.serieA], ["b", mc.serieB]].forEach(([key, serie]) => {
+      const h = (d[key] / 5) * 100; // escala fija 0-5
+      pair.appendChild(el(`<div class="gbar" style="height:${h}%; background:${serie.color};"><span class="gval">${d[key].toFixed(1)}</span></div>`));
+    });
+    col.appendChild(pair);
+    grouped.appendChild(col);
+  });
+  card.appendChild(grouped);
+  card.appendChild(el(`
+    <div class="chart-legend" style="margin-top:38px;">
+      <span><span class="dot" style="background:${mc.serieA.color};"></span>${mc.serieA.label}</span>
+      <span><span class="dot" style="background:${mc.serieB.color};"></span>${mc.serieB.label}</span>
+    </div>
+  `));
+
+  // Ranking horizontal agregado — útil con muchas categorías / nombres largos.
+  card.appendChild(el(`<div class="chart-subtitle">Fortalezas y oportunidades (ranking agregado)</div>`));
+  const hrankList = el(`<div class="hrank-list"></div>`);
+  const maxRank = 5; // escala fija 0-5
+  DATA.madurezRanking.forEach(r => {
+    const pct = (r.value / maxRank) * 100;
+    const c = nivelColor(r.value);
+    hrankList.appendChild(el(`
+      <div class="hrank-row">
+        <span class="hrank-label">${r.label}</span>
+        <div class="hrank-track"><div class="hrank-fill" style="width:${pct}%; background:${c.fg};"></div></div>
+        <span class="hrank-value">${r.value.toFixed(1)}</span>
+      </div>
+    `));
+  });
+  card.appendChild(hrankList);
+
+  // Tabla de madurez por equipo (detalle)
+  card.appendChild(el(`<div class="chart-subtitle">Detalle por equipo</div>`));
+  const tableWrap = el(`<div class="madurez-table-wrap"></div>`);
+  const table = el(`<table class="madurez"><thead><tr><th>Equipo</th>${DATA.madurezPracticas.map(p => `<th>${p}</th>`).join("")}<th>Promedio</th></tr></thead><tbody></tbody></table>`);
+  const tbody = table.querySelector("tbody");
+
+  DATA.madurezEquipos.forEach(eq => {
+    const validos = eq.valores.filter(v => v != null);
+    const prom = validos.length ? (validos.reduce((a, b) => a + b, 0) / validos.length) : null;
+    const row = el(`<tr><td>${eq.equipo}</td></tr>`);
+    eq.valores.forEach(v => {
+      const c = nivelColor(v);
+      row.appendChild(el(`<td class="num">${v == null ? "—" : `<span class="nivel-badge" style="background:${c.bg}; color:${c.fg};">${v}</span>`}</td>`));
+    });
+    const cProm = nivelColor(prom);
+    row.appendChild(el(`<td class="num"><span class="nivel-badge" style="background:${cProm.bg}; color:${cProm.fg}; font-weight:700;">${prom == null ? "—" : prom.toFixed(1)}</span></td>`));
+    tbody.appendChild(row);
+  });
+
+  tableWrap.appendChild(table);
+  card.appendChild(tableWrap);
+  return section;
+}
+
+function renderHallazgos() {
+  const h = DATA.hallazgos;
+  const section = el(`<div class="section"><div class="section-title">Hallazgos</div><div class="hallazgos-grid"></div></div>`);
+  const grid = section.querySelector(".hallazgos-grid");
+
+  const col1 = el(`<div class="hallazgo-col"><h4><span class="status-pill ok">${statusPillIcon("ok")} Fortalezas</span></h4></div>`);
+  h.fortalezas.forEach(f => col1.appendChild(el(`<div class="hallazgo-item"><div class="titulo">${f.titulo}</div><div class="evidencia">${f.evidencia}</div></div>`)));
+
+  const col2 = el(`<div class="hallazgo-col"><h4><span class="status-pill risk">${statusPillIcon("risk")} Brechas / Riesgos</span></h4></div>`);
+  h.riesgos.forEach(r => col2.appendChild(el(`<div class="hallazgo-item"><div class="titulo">${r.titulo}</div><div class="evidencia">${r.evidencia}</div></div>`)));
+
+  const col3 = el(`<div class="hallazgo-col"><h4><span class="status-pill info">${statusPillIcon("info")} Acciones Recomendadas</span></h4></div>`);
+  h.acciones.forEach(a => col3.appendChild(el(`<div class="hallazgo-item"><div class="titulo">${a.titulo}</div><div class="evidencia">${a.evidencia}</div><div class="accion-meta">→ ${a.responsable} · ${a.plazo}</div></div>`)));
+
+  grid.appendChild(col1); grid.appendChild(col2); grid.appendChild(col3);
+  return section;
+}
+
+function renderMetodologia() {
+  const m = DATA.metodologia;
+  return el(`
+    <div class="section">
+      <div class="section-title">Metodología y Trazabilidad</div>
+      <details class="metodologia">
+        <summary>Cómo se construyó este informe</summary>
+        <p>${m.resumen}</p>
+        <div class="fuentes">${m.fuentes.map(f => `<span class="fuente-chip">${f}</span>`).join("")}</div>
+        <p>${m.definiciones}</p>
+      </details>
+    </div>
+  `);
+}
+
+// ------------------------------------------------------------
+// INIT
+// ------------------------------------------------------------
+const app = document.getElementById("app");
+app.appendChild(renderHeader());
+app.appendChild(renderKpis());
+app.appendChild(renderFlujo());
+app.appendChild(renderDimensiones());
+app.appendChild(renderMadurez());
+app.appendChild(renderHallazgos());
+app.appendChild(renderMetodologia());
+</script>
+</body>
+</html>

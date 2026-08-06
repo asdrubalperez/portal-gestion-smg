@@ -20,6 +20,7 @@ const ICONS = {
   menu: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 5.5h14M3 10h14M3 14.5h14"/></svg>`,
   close: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5l10 10M15 5L5 15"/></svg>`,
   download: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 3v9.5M6.5 9l3.5 3.5L13.5 9"/><path d="M4 14.5v1.3a1.2 1.2 0 001.2 1.2h9.6a1.2 1.2 0 001.2-1.2v-1.3"/></svg>`,
+  informes: `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 2.5h7l3 3v12a1 1 0 01-1 1H5a1 1 0 01-1-1v-14a1 1 0 011-1z"/><path d="M12 2.5V6h3.5M6.5 10h7M6.5 12.5h7M6.5 15h4"/></svg>`,
 };
 
 const NAV_ITEMS = [
@@ -28,6 +29,7 @@ const NAV_ITEMS = [
   { id: "indicadores", label: "Indicadores", icon: "indicadores" },
   { id: "frentes", label: "Frentes de Trabajo", icon: "frentes" },
   { id: "pasos", label: "Próximos Pasos", icon: "pasos" },
+  { id: "informes", label: "Informes", icon: "informes" },
 ];
 
 function fmtUSD(n) {
@@ -45,6 +47,8 @@ function getIniciativa(id) { return REPORT.iniciativas.find(i => i.id === id); }
 function getFrente(id) { return REPORT.frentes.find(f => f.id === id); }
 function frenteNombre(id) { const f = getFrente(id); return f ? f.nombre : id; }
 function jiraUrl(codigo) { return REPORT.jiraBaseUrl + codigo; }
+function getInformes() { return REPORT.informes || []; } // tolerante: períodos viejos sin "informes" no rompen
+function getInforme(id) { return getInformes().find(i => i.id === id); }
 
 // Período actualmente mostrado (se actualiza en cada render() según la URL)
 var CURRENT_PERIOD_ID = DEFAULT_PERIOD_ID;
@@ -85,6 +89,7 @@ function parseHash() {
   if (parts.length === 0) return { period: periodId, view: "dashboard" };
   if (parts[0] === "iniciativa" && parts[1]) return { period: periodId, view: "iniciativa-detalle", id: parts[1] };
   if (parts[0] === "frente" && parts[1]) return { period: periodId, view: "frente-detalle", id: parts[1] };
+  if (parts[0] === "informe" && parts[1]) return { period: periodId, view: "informe-detalle", id: parts[1] };
   return { period: periodId, view: parts[0] };
 }
 
@@ -137,6 +142,8 @@ function renderRoute(route, root) {
     case "frentes": root.appendChild(renderFrentes()); break;
     case "frente-detalle": root.appendChild(renderFrenteDetalle(route.id)); break;
     case "pasos": root.appendChild(renderProximosPasos()); break;
+    case "informes": root.appendChild(renderInformes()); break;
+    case "informe-detalle": root.appendChild(renderInformeDetalle(route.id)); break;
     default: root.appendChild(renderDashboard());
   }
   window.scrollTo(0, 0);
@@ -170,7 +177,8 @@ function buildErrorState(err, periodId) {
 
 function updateActiveNav(route) {
   const topLevel = (route.view === "iniciativa-detalle") ? "iniciativas" :
-                    (route.view === "frente-detalle") ? "frentes" : route.view;
+                    (route.view === "frente-detalle") ? "frentes" :
+                    (route.view === "informe-detalle") ? "informes" : route.view;
   document.querySelectorAll(".nav-item").forEach(el => {
     el.classList.toggle("active", el.dataset.nav === topLevel);
   });
@@ -190,7 +198,7 @@ function updateBreadcrumb(route) {
   const el = document.getElementById("breadcrumb");
   const labels = {
     dashboard: "Dashboard", iniciativas: "Iniciativas", indicadores: "Indicadores Consolidados",
-    frentes: "Frentes de Trabajo", pasos: "Próximos Pasos",
+    frentes: "Frentes de Trabajo", pasos: "Próximos Pasos", informes: "Informes",
   };
   if (route.view === "iniciativa-detalle") {
     const ini = getIniciativa(route.id);
@@ -198,6 +206,9 @@ function updateBreadcrumb(route) {
   } else if (route.view === "frente-detalle") {
     const f = getFrente(route.id);
     el.innerHTML = `Frentes de Trabajo <span class="sep">/</span> <b>${f ? f.nombre : ""}</b>`;
+  } else if (route.view === "informe-detalle") {
+    const inf = getInforme(route.id);
+    el.innerHTML = `Informes <span class="sep">/</span> <b>${inf ? inf.titulo : ""}</b>`;
   } else {
     el.innerHTML = `<b>${labels[route.view] || "Dashboard"}</b>`;
   }
@@ -679,6 +690,89 @@ function renderProximosPasos() {
     });
     wrap.appendChild(group);
   });
+
+  return wrap;
+}
+
+// ------------------------------------------------------------
+// VIEW: INFORMES (listado con tarjetas + detalle en iframe)
+// ------------------------------------------------------------
+function renderInformes() {
+  const informes = getInformes();
+
+  const wrap = el(`
+    <div>
+      <div class="page-head">
+        <div class="eyebrow">${REPORT.meta.periodoLabel}</div>
+        <h1>Informes</h1>
+        <p class="desc">Informes extendidos e interactivos asociados a este período (assessments, análisis puntuales, entregas especiales). Cada uno se abre en su propia vista.</p>
+      </div>
+      <div class="cards-grid"></div>
+    </div>
+  `);
+
+  const grid = wrap.querySelector(".cards-grid");
+
+  if (!informes.length) {
+    grid.replaceWith(el(`<p style="color:var(--slate); font-size:13.5px;">Todavía no hay informes cargados para este período.</p>`));
+    return wrap;
+  }
+
+  informes.forEach(inf => {
+    const card = el(`
+      <div class="ini-card informe-card" role="button" tabindex="0">
+        <div class="ini-card-top">
+          <div>
+            ${inf.categoria ? `<div class="ini-card-code">${inf.categoria.toUpperCase()}</div>` : ""}
+            <h3>${inf.titulo}</h3>
+          </div>
+        </div>
+        <p class="informe-card-desc">${inf.descripcion || ""}</p>
+        ${inf.fecha ? `<div class="ini-card-frentes"><span class="chip">${fmtFecha(inf.fecha)}</span></div>` : ""}
+      </div>
+    `);
+    card.addEventListener("click", () => navigate(periodPath(`informe/${inf.id}`)));
+    card.addEventListener("keydown", e => { if (e.key === "Enter") navigate(periodPath(`informe/${inf.id}`)); });
+    grid.appendChild(card);
+  });
+
+  return wrap;
+}
+
+function fmtFecha(iso) {
+  const d = new Date(iso + "T00:00:00");
+  if (isNaN(d)) return iso;
+  return d.toLocaleDateString("es-AR", { day: "2-digit", month: "long", year: "numeric" });
+}
+
+function renderInformeDetalle(id) {
+  const inf = getInforme(id);
+  if (!inf) {
+    return el(`<div><p>Informe no encontrado.</p><a class="back-link" href="${periodPath("informes")}">${ICONS.arrowLeft} Volver a Informes</a></div>`);
+  }
+
+  const wrap = el(`<div></div>`);
+  wrap.appendChild(el(`<a class="back-link" href="${periodPath("informes")}">${ICONS.arrowLeft} Volver a Informes</a>`));
+
+  wrap.appendChild(el(`
+    <div class="detail-head">
+      <div class="titles">
+        ${inf.categoria ? `<div class="code">${inf.categoria}</div>` : ""}
+        <h1>${inf.titulo}</h1>
+      </div>
+      <a class="entregable-link" href="${inf.archivo}" target="_blank" rel="noopener">Abrir en pestaña nueva ${ICONS.external}</a>
+    </div>
+  `));
+
+  if (inf.descripcion) {
+    wrap.appendChild(el(`<p class="resumen-text" style="margin-bottom:18px;">${inf.descripcion}</p>`));
+  }
+
+  wrap.appendChild(el(`
+    <div class="informe-frame-wrap">
+      <iframe src="${inf.archivo}" title="${inf.titulo}" loading="lazy"></iframe>
+    </div>
+  `));
 
   return wrap;
 }
