@@ -1368,7 +1368,7 @@ function renderMadurez() {
   card.appendChild(el(`<div class="chart-subtitle">Fortalezas y oportunidades — ranking agregado de julio</div>`));
   const hrankList = el(`<div class="hrank-list"></div>`);
   const maxRank = 5; // escala fija 0-5
-  DATA.madurezRanking.forEach(r => {
+  [...DATA.madurezRanking].sort((a, b) => a.value - b.value).forEach(r => {
     const pct = (r.value / maxRank) * 100;
     const c = nivelColor(r.value);
     hrankList.appendChild(el(`
